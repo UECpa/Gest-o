@@ -1,132 +1,103 @@
 <?php
 include 'db.php';
-include 'auth.php';
+include 'auth.php'; // Certifique-se de que auth.php gerencia a sessão e a autenticação
 
+// Inicialização das variáveis de busca
 $search_nome = '';
 $search_cpf = '';
 $search_vigencia_de = '';
 $search_vigencia_ate = '';
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $search_nome = $_POST['search_nome'];
-    $search_cpf = $_POST['search_cpf'];
-    $search_vigencia_de = $_POST['search_vigencia_de'];
-    $search_vigencia_ate = $_POST['search_vigencia_ate'];
+// Verifique se o usuário está logado
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
 }
 
-$sql = "SELECT * FROM clientes WHERE nome LIKE '%$search_nome%' AND cpf LIKE '%$search_cpf%'";
+// Saudação com base na hora do dia
+$nome_usuario = isset($_SESSION['user_nome']) ? htmlspecialchars($_SESSION['user_nome']) : 'Usuário';
+$hora_atual = date('H');
+
+if ($hora_atual >= 5 && $hora_atual < 12) {
+    $saudacao = "Bom dia, $nome_usuario!";
+} elseif ($hora_atual >= 12 && $hora_atual < 18) {
+    $saudacao = "Boa tarde, $nome_usuario!";
+} else {
+    $saudacao = "Boa noite, $nome_usuario!";
+}
+
+// Processar busca se o formulário for enviado
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $search_nome = $_POST['search_nome'] ?? '';
+    $search_cpf = $_POST['search_cpf'] ?? '';
+    $search_vigencia_de = $_POST['search_vigencia_de'] ?? '';
+    $search_vigencia_ate = $_POST['search_vigencia_ate'] ?? '';
+}
+
+// Preparar a consulta com base nos filtros de busca
+$sql = "SELECT * FROM clientes WHERE nome LIKE ? AND cpf LIKE ?";
+$params = ["%$search_nome%", "%$search_cpf%"];
 
 if ($search_vigencia_de && $search_vigencia_ate) {
-    $sql .= " AND inicio_vigencia BETWEEN '$search_vigencia_de' AND '$search_vigencia_ate'";
+    $sql .= " AND inicio_vigencia BETWEEN ? AND ?";
+    $params[] = $search_vigencia_de;
+    $params[] = $search_vigencia_ate;
 } elseif ($search_vigencia_de) {
-    $sql .= " AND inicio_vigencia >= '$search_vigencia_de'";
+    $sql .= " AND inicio_vigencia >= ?";
+    $params[] = $search_vigencia_de;
 } elseif ($search_vigencia_ate) {
-    $sql .= " AND inicio_vigencia <= '$search_vigencia_ate'";
+    $sql .= " AND inicio_vigencia <= ?";
+    $params[] = $search_vigencia_ate;
 }
 
-$result = $conn->query($sql);
+$stmt = $conn->prepare($sql);
+$stmt->bind_param(str_repeat('s', count($params)), ...$params);
+$stmt->execute();
+$result = $stmt->get_result();
+
+// Função para formatar a data
+function formatDate($date) {
+    return date('d/m/Y', strtotime($date));
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento de Clientes</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <style>/* Estilos gerais do corpo */
-
-body {
-    background-color: #f8f9fa;
-}
-.navbar {
-    margin-bottom: 30px;
-}
-.navbar-brand img {
-    max-height: 50px;
-}
-.form-inline input,
-.form-inline button {
-    margin-right: 10px;
-}
-.form-inline input {
-    border-radius: 25px;
-}
-.btn-success,
-.btn-info,
-.btn-secondary,
-.btn-primary {
-    border-radius: 25px;
-}
-.table th,
-.table td {
-    text-align: center;
-}
-.table th {
-    background-color: #343a40;
-    color: white;
-}
-.table td {
-    background-color: #ffffff;
-}
-.table-bordered {
-    border: 1px solid #dee2e6;
-}
-.table-bordered td,
-.table-bordered th {
-    border: 1px solid #dee2e6;
-}
-.table a {
-    color: #007bff;
-}
-.table a:hover {
-    text-decoration: none;
-    color: #0056b3;
-}
-.btn-sm {
-    font-size: 0.875rem;
-}
-.btn-warning {
-    border-radius: 25px;
-}
-.btn-danger {
-    border-radius: 25px;
-}
-.animate__animated {
-    animation-duration: 1s;
-}
-.animate__pulse {
-    animation-name: pulse;
-}
- </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-        <a class="navbar-brand">
-            <img src="IMG/LogoM.png" alt="MRG Corretora de Seguros">
+        <a class="navbar-brand" href="#">
+            <img src="IMG/LogoM.png" alt="MRG Corretora de Seguros" height="40">
         </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link animate__animated animate__pulse" href="months.php">
+                    <a class="nav-link" href="months.php">
                         <i class="fas fa-users"></i> Clientes
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link animate__animated animate__pulse"
-                        href="https://mrgseguros.com.br/site/">
-                        <i class="fas fa-tachometer-alt"></i> MRG site
+                    <a class="nav-link" href="https://mrgseguros.com.br/site/">
+                        <i class="fas fa-tachometer-alt"></i> MRG Site
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link animate__animated animate__pulse" href="contato.html">
-                        <i class="fas fa-envelope"></i> Marketing
-                    </a>
+                    <form method="POST" action="logout.php" class="nav-link mb-0">
+                        <button type="submit" class="btn btn-outline-light">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
                 </li>
             </ul>
         </div>
@@ -134,51 +105,51 @@ body {
 </nav>
 
 <div class="container mt-5">
-<div class="container mt-5">
-    <h2 class="text-center"><i class="fas fa-clipboard-list"></i> Gerenciamento de Clientes</h2>
-    <form method="POST" action="index.php" class="form-inline mb-3">
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-user"></i></span>
+    <p class="saudacao"><?php echo $saudacao; ?></p>
+    <h2 class="text-center mb-4"><i class="fas fa-clipboard-list"></i> Gerenciamento de Clientes</h2>
+    <form method="POST" action="index.php" class="mb-4">
+        <div class="form-row">
+            <div class="form-group col-md-3">
+                <label for="search_nome"><i class="fas fa-user"></i> Nome</label>
+                <input type="text" class="form-control" id="search_nome" name="search_nome" placeholder="Buscar por Nome" value="<?php echo htmlspecialchars($search_nome); ?>">
             </div>
-            <input class="form-control" type="search" placeholder="Buscar por Nome" name="search_nome" value="<?php echo $search_nome; ?>">
-        </div>
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-id-card"></i></span>
+            <div class="form-group col-md-3">
+                <label for="search_cpf"><i class="fas fa-id-card"></i> CPF</label>
+                <input type="text" class="form-control" id="search_cpf" name="search_cpf" placeholder="Buscar por CPF" value="<?php echo htmlspecialchars($search_cpf); ?>">
             </div>
-            <input class="form-control" type="search" placeholder="Buscar por CPF" name="search_cpf" value="<?php echo $search_cpf; ?>">
-        </div>
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+            <div class="form-group col-md-2">
+                <label for="search_vigencia_de"><i class="fas fa-calendar-alt"></i> Vigência De</label>
+                <input type="date" class="form-control" id="search_vigencia_de" name="search_vigencia_de" value="<?php echo htmlspecialchars($search_vigencia_de); ?>">
             </div>
-            <input class="form-control" type="date" placeholder="Buscar por Data De" name="search_vigencia_de" value="<?php echo $search_vigencia_de; ?>">
-        </div>
-        <div class="input-group mb-2">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+            <div class="form-group col-md-2">
+                <label for="search_vigencia_ate"><i class="fas fa-calendar-alt"></i> Vigência Até</label>
+                <input type="date" class="form-control" id="search_vigencia_ate" name="search_vigencia_ate" value="<?php echo htmlspecialchars($search_vigencia_ate); ?>">
             </div>
-            <input class="form-control" type="date" placeholder="Buscar por Data Até" name="search_vigencia_ate" value="<?php echo $search_vigencia_ate; ?>">
+            <div class="form-group col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-success"><i class="fas fa-search"></i> Buscar</button>
+            </div>
         </div>
-        <button class="btn btn-success mb-2" type="submit"><i class="fas fa-search"></i> Buscar</button>
-        <a href="export.php?search_nome=<?php echo $search_nome; ?>&search_cpf=<?php echo $search_cpf; ?>&search_vigencia_de=<?php echo $search_vigencia_de; ?>&search_vigencia_ate=<?php echo $search_vigencia_ate; ?>" class="btn btn-info mb-2 ml-2"><i class="fas fa-file-export"></i> Exportar dados específicos da busca</a>
-        <a href="export.php" class="btn btn-secondary mb-2 ml-2"><i class="fas fa-file-export"></i> Exportar Dados Lista Geral</a>
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <a href="export.php?search_nome=<?php echo urlencode($search_nome); ?>&search_cpf=<?php echo urlencode($search_cpf); ?>&search_vigencia_de=<?php echo urlencode($search_vigencia_de); ?>&search_vigencia_ate=<?php echo urlencode($search_vigencia_ate); ?>" class="btn btn-info mr-2"><i class="fas fa-file-export"></i> Exportar dados específicos da busca</a>
+                <a href="export.php" class="btn btn-secondary"><i class="fas fa-file-export"></i> Exportar Dados Lista Geral</a>
+            </div>
+        </div>
     </form>
-    <a href="add.php" class="btn btn-primary mb-3">Adicionar Cliente</a>
-    <h2>Lista Geral</h2>
-    <table class="table table-bordered">
+    <a href="add.php" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Adicionar Cliente</a>
+    <h3>Lista Geral</h3>
+    <table class="table table-striped table-bordered">
         <thead>
         <tr>
             <th><i class="fas fa-calendar-day"></i> Início Vigência</th>
-            <th><i class="fas fa-file-alt"></i>Proposta</th>
+            <th><i class="fas fa-file-alt"></i> Proposta</th>
             <th><i class="fas fa-user"></i> Nome</th>
             <th><i class="fas fa-id-card"></i> CPF</th>
-            <th><i class="fas fa-hashtag"></i> Celular</th>
+            <th><i class="fas fa-phone"></i> Celular</th>
             <th><i class="fas fa-envelope"></i> Email</th>
             <th><i class="fas fa-dollar-sign"></i> Prêmio Líquido</th>
-            <th>Seguradora</th>
-            <th>Tipo de Seguro</th>
+            <th><i class="fas fa-building"></i> Seguradora</th>
+            <th><i class="fas fa-shield-alt"></i> Tipo de Seguro</th>
             <th><i class="fas fa-percent"></i> Comissão (%)</th>
             <th><i class="fas fa-calculator"></i> Comissão Calculada</th>
             <th><i class="fas fa-tachometer-alt"></i> Status</th>
@@ -189,23 +160,25 @@ body {
         <tbody>
         <?php while ($row = $result->fetch_assoc()): ?>
             <tr>
-                <td><?php echo $row['inicio_vigencia']; ?></td>
-                <td><?php echo $row['apolice']; ?></td>
-                <td><?php echo $row['nome']; ?></td>
-                <td><?php echo $row['cpf']; ?></td>
-                <td><?php echo $row['numero']; ?></td>
-                <td><?php echo $row['email']; ?></td>
-                <td><?php echo $row['premio_liquido']; ?></td>
-                <td><?php echo $row['comissao']; ?></td>
-                <td><?php echo $row['premio_liquido'] * ($row['comissao'] / 100); ?></td>
+                <td><?php echo formatDate($row['inicio_vigencia']); ?></td>
+                <td><?php echo htmlspecialchars($row['apolice']); ?></td>
+                <td><?php echo htmlspecialchars($row['nome']); ?></td>
+                <td><?php echo htmlspecialchars($row['cpf']); ?></td>
+                <td><?php echo htmlspecialchars($row['numero']); ?></td>
+                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                <td><?php echo htmlspecialchars($row['premio_liquido']); ?></td>
+                <td><?php echo htmlspecialchars($row['seguradora']); ?></td>
+                <td><?php echo htmlspecialchars($row['tipo_seguro']); ?></td>
+                <td><?php echo htmlspecialchars($row['comissao']); ?></td>
+                <td><?php echo htmlspecialchars($row['premio_liquido'] * ($row['comissao'] / 100)); ?></td>
                 <td>
                     <form method="POST" action="update_status.php">
-                        <input type="hidden" name="id" value="<?php echo $row['id']; ?>">
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
                         <select class="form-control" name="status" onchange="this.form.submit()">
-                            <option value="Efetivado" <?php if ($row['status'] == 'Efetivado') echo 'selected'; ?>>Efetivado</option>
-                            <option value="Cancelado" <?php if ($row['status'] == 'Cancelado') echo 'selected'; ?>>Cancelado</option>
-                            <option value="Recusa por vistoria" <?php if ($row['status'] == 'Recusa por vistoria') echo 'selected'; ?>>Recusa por vistoria</option>
-                            <option value="Processo de Vistoria" <?php if ($row['status'] == 'Processo de Vistoria') echo 'selected'; ?>>Processo de Vistoria</option>
+                            <option value="Efetivado" <?php echo $row['status'] == 'Efetivado' ? 'selected' : ''; ?>>Efetivado</option>
+                            <option value="Cancelado" <?php echo $row['status'] == 'Cancelado' ? 'selected' : ''; ?>>Cancelado</option>
+                            <option value="Recusa por vistoria" <?php echo $row['status'] == 'Recusa por vistoria' ? 'selected' : ''; ?>>Recusa por vistoria</option>
+                            <option value="Processo de Vistoria" <?php echo $row['status'] == 'Processo de Vistoria' ? 'selected' : ''; ?>>Processo de Vistoria</option>
                         </select>
                     </form>
                     <?php
@@ -225,16 +198,14 @@ body {
                     }
                     ?>
                 </td>
-                <td><?php echo $row['seguradora']; ?></td>
-                <td><?php echo $row['tipo_seguro']; ?></td>
                 <td>
                     <?php if ($row['pdf_path']): ?>
-                        <a href="<?php echo $row['pdf_path']; ?>" target="_blank">Visualizar PDF</a>
+                        <a href="<?php echo htmlspecialchars($row['pdf_path']); ?>" target="_blank">Visualizar PDF</a>
                     <?php endif; ?>
                 </td>
                 <td>
-                    <a href="edit.php?id=<?php echo $row['id']; ?>" class="btn btn-warning btn-sm">Editar</a>
-                    <a href="delete.php?id=<?php echo $row['id']; ?>" class="btn btn-danger btn-sm">Deletar</a>
+                    <a href="edit.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="delete.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Deletar</a>
                 </td>
             </tr>
         <?php endwhile; ?>
@@ -246,4 +217,3 @@ body {
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-

@@ -1,0 +1,80 @@
+body {
+    background-color: #eaf4e4; /* Verde claro bem rasa */
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.table {
+    background-color: #fff;
+    border-radius: 0.5rem;
+}
+
+.table th, .table td {
+    vertical-align: middle;
+}
+
+.table thead {
+    background-color: #d4edda; /* Verde claro para o cabeçalho */
+}
+
+.btn {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+}
+
+.btn-info {
+    background-color: #17a2b8;
+    border-color: #17a2b8;
+}
+
+.btn-info:hover {
+    background-color: #138496;
+    border-color: #117a8b;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+.btn-warning {
+    background-color: #ffc107;
+    border-color: #ffc107;
+}
+
+.btn-warning:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    border-color: #bd2130;
+}
+
+.card-header {
+    font-size: 1.25rem;
+    background-color: #d4edda;
+}
+
+.card-body a {
+    font-size: 1rem;
+}
+
+.table td a {
+    display: inline-flex;
+    align-items: center;
+}

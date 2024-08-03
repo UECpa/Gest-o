@@ -13,6 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $premio_liquido = $_POST['premio_liquido'];
     $comissao = $_POST['comissao'];
     $status = $_POST['status'];
+    $observacoes = $_POST['observacoes'];
     
     $pdf_path = NULL;
     if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] == UPLOAD_ERR_OK) {
@@ -23,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     $sql = "UPDATE clientes SET 
-            inicio_vigencia='$inicio_vigencia', apolice='$apolice', nome='$nome', cpf='$cpf', numero='$numero', email='$email', premio_liquido='$premio_liquido', comissao='$comissao', status='$status', pdf_path='$pdf_path'
+            inicio_vigencia='$inicio_vigencia', apolice='$apolice', nome='$nome', cpf='$cpf', observacoes='$observacoes', numero='$numero', email='$email', premio_liquido='$premio_liquido', comissao='$comissao', status='$status', pdf_path='$pdf_path'
             WHERE id=$id";
 
     if ($conn->query($sql) === TRUE) {
@@ -42,48 +43,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Cliente</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="edit.css">
 </head>
 <body>
 <div class="container mt-5">
-    <h2 class="text-center">Editar Cliente</h2>
+    <h2 class="text-center mb-4">Editar Cliente</h2>
     <form method="POST" enctype="multipart/form-data">
         <div class="form-group">
-            <label>Início Vigência</label>
-            <input type="date" class="form-control" name="inicio_vigencia" value="<?php echo $row['inicio_vigencia']; ?>" required>
+            <label for="inicio_vigencia">Início Vigência</label>
+            <input type="date" class="form-control" id="inicio_vigencia" name="inicio_vigencia" value="<?php echo htmlspecialchars($row['inicio_vigencia']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Apólice</label>
-            <input type="text" class="form-control" name="apolice" value="<?php echo $row['apolice']; ?>" required>
+            <label for="apolice">Apólice</label>
+            <input type="text" class="form-control" id="apolice" name="apolice" value="<?php echo htmlspecialchars($row['apolice']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Nome</label>
-            <input type="text" class="form-control" name="nome" value="<?php echo $row['nome']; ?>" required>
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
         </div>
         <div class="form-group">
-            <label>CPF</label>
-            <input type="text" class="form-control" name="cpf" value="<?php echo $row['cpf']; ?>" required>
+            <label for="cpf">CPF</label>
+            <input type="text" class="form-control" id="cpf" name="cpf" value="<?php echo htmlspecialchars($row['cpf']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Número</label>
-            <input type="text" class="form-control" name="numero" value="<?php echo $row['numero']; ?>" required>
+            <label for="numero">Número</label>
+            <input type="number" class="form-control" id="numero" name="numero" value="<?php echo htmlspecialchars($row['numero']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" name="email" value="<?php echo $row['email']; ?>" required>
+            <label for="observacoes">Observações</label>
+            <input type="text" class="form-control" id="observacoes" name="observacoes" value="<?php echo htmlspecialchars($row['observacoes']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Prêmio Líquido</label>
-            <input type="number" step="0.01" class="form-control" name="premio_liquido" value="<?php echo $row['premio_liquido']; ?>" required>
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($row['email']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Comissão (%)</label>
-            <input type="number" step="0.01" class="form-control" name="comissao" value="<?php echo $row['comissao']; ?>" required>
+            <label for="premio_liquido">Prêmio Líquido</label>
+            <input type="number" step="0.01" class="form-control" id="premio_liquido" name="premio_liquido" value="<?php echo htmlspecialchars($row['premio_liquido']); ?>" required>
         </div>
         <div class="form-group">
-            <label>Status</label>
-            <select class="form-control" name="status">
+            <label for="comissao">Comissão (%)</label>
+            <input type="number" step="0.01" class="form-control" id="comissao" name="comissao" value="<?php echo htmlspecialchars($row['comissao']); ?>" required>
+        </div>
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" id="status" name="status">
                 <option value="Efetivado" <?php if ($row['status'] == 'Efetivado') echo 'selected'; ?>>Efetivado</option>
                 <option value="Cancelado" <?php if ($row['status'] == 'Cancelado') echo 'selected'; ?>>Cancelado</option>
                 <option value="Recusa por vistoria" <?php if ($row['status'] == 'Recusa por vistoria') echo 'selected'; ?>>Recusa por vistoria</option>
@@ -91,11 +99,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </select>
         </div>
         <div class="form-group">
-            <label>Arquivo PDF</label>
-            <input type="file" class="form-control-file" name="pdf">
+            <label for="pdf">Arquivo PDF</label>
+            <input type="file" class="form-control-file" id="pdf" name="pdf">
         </div>
-        <button type="submit" class="btn btn-primary">Atualizar</button>
+        <button type="submit" class="btn btn-primary">
+            <i class="bi bi-pencil"></i> Atualizar
+        </button>
     </form>
 </div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

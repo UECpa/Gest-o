@@ -22,26 +22,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta charset="UTF-8">
     <title>Registrar</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="register.css"> <!-- Adicione o link para o CSS -->
 </head>
 <body>
 <div class="container mt-5">
+    <img src="logo.png" alt="Logo da Empresa" class="logo"> <!-- Logo da empresa -->
     <h2 class="text-center">Registrar</h2>
     <form method="POST" action="register.php">
         <div class="form-group">
-            <label>Nome</label>
-            <input type="text" class="form-control" name="nome" required>
+            <label for="nome"><i class="fas fa-user"></i> Nome</label>
+            <input type="text" class="form-control" id="nome" name="nome" required>
         </div>
         <div class="form-group">
-            <label>Email</label>
-            <input type="email" class="form-control" name="email" required>
+            <label for="email"><i class="fas fa-envelope"></i> Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
         </div>
         <div class="form-group">
-            <label>Senha</label>
-            <input type="password" class="form-control" name="senha" required>
+            <label for="senha"><i class="fas fa-lock"></i> Senha</label>
+            <input type="password" class="form-control" id="senha" name="senha" required>
         </div>
-        <button type="submit" class="btn btn-primary">Registrar</button>
+        <button type="submit" class="btn btn-primary"><i class="fas fa-user-plus"></i> Registrar</button>
     </form>
-    <p class="text-center mt-3"><a href="login.php">Já tem uma conta? Faça login aqui</a></p>
+    <p class="text-center mt-3">
+        <i class="fas fa-sign-in-alt"></i> <a href="login.php">Já tem uma conta? Faça login aqui</a>
+    </p>
 </div>
 </body>
 </html>

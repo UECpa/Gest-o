@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="stylesheet" href="months.css">
     <script>
         function showSummary(month) {
             $.ajax({
@@ -19,63 +20,13 @@
             });
         }
     </script>
-    <style>
-        body {
-            background-color: #f8f9fa;
-        }
-        .container {
-            margin-top: 30px;
-        }
-        .card {
-            border-radius: 15px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            font-size: 18px;
-            border-bottom: 1px solid #0056b3;
-        }
-        .card-body {
-            padding: 15px;
-        }
-        .btn-primary,
-        .btn-info {
-            border-radius: 25px;
-            font-size: 16px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-info {
-            background-color: #17a2b8;
-            border: none;
-        }
-        .btn-info:hover {
-            background-color: #117a8b;
-        }
-        .modal-content {
-            border-radius: 15px;
-        }
-        .modal-header {
-            border-bottom: none;
-        }
-        .modal-footer {
-            border-top: none;
-        }
-        .modal-title {
-            font-size: 18px;
-        }
-    </style>
 </head>
 <body>
 <div class="container">
+    <!-- Botão para retornar ao index.php -->
+    <div class="mb-3">
+        <a href="index.php" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Voltar para Início</a>
+    </div>
     <h2 class="text-center"><i class="fas fa-calendar-alt"></i> Clientes por Mês</h2>
     <div class="row">
         <?php

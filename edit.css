@@ -1,0 +1,61 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #e9f5e9; /* Fundo verde claro */
+    color: #343a40;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    margin-top: 50px;
+}
+
+h2 {
+    color: #28a745; /* Verde mais escuro para o título */
+    margin-bottom: 20px;
+}
+
+form {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-control, .form-control-file {
+    border-radius: 0.25rem;
+    border: 1px solid #ced4da;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+.form-control:focus, .form-control-file:focus {
+    border-color: #28a745; /* Verde para o foco */
+    box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); /* Verde suave */
+}
+
+.btn-primary {
+    background-color: #28a745; /* Verde primário */
+    border: none;
+    border-radius: 0.25rem;
+    padding: 10px 20px;
+}
+
+.btn-primary:hover {
+    background-color: #218838; /* Verde escuro ao passar o mouse */
+    color: #ffffff;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+}
+
+.form-group label i {
+    margin-right: 10px;
+    color: #28a745; /* Verde para os ícones */
+}
