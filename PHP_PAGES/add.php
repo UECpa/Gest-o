@@ -55,113 +55,117 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Cliente</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="../CSS/add.css"> <!-- Adicione o link para o CSS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"></script>
+    <link rel="stylesheet" href="../CSS/add.css">
 </head>
 <body>
-<body>
     <div class="container mt-5">
-        <h2 class="text-center">Adicionar Cliente</h2>
+        <h2 class="text-center mb-4">Adicionar Cliente</h2>
         <form method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label><i class="bi bi-calendar-day"></i> Início Vigência</label>
-                <input type="date" class="form-control" name="inicio_vigencia" required>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inicio_vigencia"><i class="bi bi-calendar-day"></i> Início Vigência</label>
+                    <input type="date" class="form-control" id="inicio_vigencia" name="inicio_vigencia" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="apolice"><i class="bi bi-file-earmark-text"></i> Proposta</label>
+                    <input type="number" class="form-control" id="apolice" name="apolice" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="nome"><i class="bi bi-person"></i> Nome</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="cpf"><i class="bi bi-card-text"></i> CPF</label>
+                    <input type="number" class="form-control" id="cpf" name="cpf" required>
+                </div>
+            </div>
+            <div class="form-row">
+            <div class="form-group col-md-6">
+    <label for="numero"><i class="bi bi-telephone"></i> Celular</label>
+    <input type="text" class="form-control" id="numero" name="numero" required>
+</div>
+                <div class="form-group col-md-6">
+                    <label for="email"><i class="bi bi-envelope"></i> Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="premio_liquido"><i class="bi bi-currency-dollar"></i> Prêmio Líquido</label>
+                    <input type="number" step="0.01" class="form-control" id="premio_liquido" name="premio_liquido" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="comissao"><i class="bi bi-percent"></i> Comissão (%)</label>
+                    <input type="number" step="0.01" class="form-control" id="comissao" name="comissao" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="status"><i class="bi bi-tags"></i> Status</label>
+                    <select class="form-control" id="status" name="status">
+                        <option value="Efetivado">Efetivado</option>
+                        <option value="Pendencia na vistoria">Pendência na vistoria</option>
+                        <option value="Processo de Vistoria">Processo de Vistoria</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="seguradora"><i class="bi bi-building"></i> Seguradora</label>
+                    <select class="form-control" id="seguradora" name="seguradora">
+                        <option value="Aliro Seguro">Aliro Seguro</option>
+                        <option value="Allianz Seguros">Allianz Seguros</option>
+                        <option value="Azul Seguros">Azul Seguros</option>
+                        <option value="HDI Seguros">HDI Seguros</option>
+                        <option value="Liberty Seguros">Liberty Seguros</option>
+                        <option value="MAPFRE">MAPFRE</option>
+                        <option value="Porto Seguro">Porto Seguro</option>
+                        <option value="Sompo Auto">Sompo Auto</option>
+                        <option value="Tokio Marine Seguros">Tokio Marine Seguros</option>
+                        <option value="Zurich Brasil Seguros">Zurich Brasil Seguros</option>
+                        <option value="Sancor Seguros">Sancor Seguros</option>
+                        <option value="Suhai">Suhai</option>
+                        <option value="Mitsui">Mitsui</option>
+                        <option value="Sura Seguros">Sura Seguros</option>
+                        <option value="EZZE">EZZE</option>
+                    </select>
+                </div>
             </div>
             <div class="form-group">
-                <label><i class="bi bi-file-earmark-text"></i> Proposta</label>
-                <input type="text" class="form-control" name="apolice" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-person"></i> Nome</label>
-                <input type="text" class="form-control" name="nome" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-card-text"></i> CPF</label>
-                <input type="text" class="form-control" name="cpf" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-telephone"></i> Celular</label>
-                <input type="number" class="form-control" name="numero" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-envelope"></i> Email</label>
-                <input type="email" class="form-control" name="email" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-currency-dollar"></i> Prêmio Líquido</label>
-                <input type="number" step="0.01" class="form-control" name="premio_liquido" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-percent"></i> Comissão (%)</label>
-                <input type="number" step="0.01" class="form-control" name="comissao" required>
-            </div>
-            <div class="form-group">
-                <label><i class="bi bi-tags"></i> Status</label>
-                <select class="form-control" name="status">
-                    <option value="Efetivado">Efetivado</option>
-                    <option value="Cancelado">Cancelado</option>
-                    <option value="Recusa por vistoria">Recusa por vistoria</option>
-                    <option value="Processo de Vistoria">Processo de Vistoria</option>
+                <label for="tipo_seguro"><i class="bi bi-shield"></i> Tipo de Seguro</label>
+                <select class="form-control" id="tipo_seguro" name="tipo_seguro">
+                    <option value="Seguro Auto">Seguro Auto</option>
+                    <option value="Seguro Moto">Seguro Moto</option>
+                    <option value="Seguro de Vida">Seguro de Vida</option>
+                    <option value="Seguro Empresarial">Seguro Empresarial</option>
+                    <option value="Consórcio">Consórcio</option>
+                    <option value="Seguro Transporte">Seguro Transporte</option>
+                    <option value="Seguro Saúde">Seguro Saúde</option>
+                    <option value="Seguro Dental">Seguro Dental</option>
+                    <option value="Seguro Frota">Seguro Frota</option>
+                    <option value="Seguro Agronegócio">Seguro Agronegócio</option>
                 </select>
             </div>
             <div class="form-group">
-    <label><i class="bi bi-building"></i> Seguradora</label>
-    <select class="form-control" name="seguradora">
-        <option value="Aliro Seguro"><i class="bi bi-shield"></i> Aliro Seguro</option>
-        <option value="Allianz Seguros"><i class="bi bi-shield"></i> Allianz Seguros</option>
-        <option value="Azul Seguros"><i class="bi bi-shield"></i> Azul Seguros</option>
-        <option value="HDI Seguros"><i class="bi bi-shield"></i> HDI Seguros</option>
-        <option value="Liberty Seguros"><i class="bi bi-shield"></i> Liberty Seguros</option>
-        <option value="MAPFRE"><i class="bi bi-shield"></i> MAPFRE</option>
-        <option value="Porto Seguro"><i class="bi bi-shield"></i> Porto Seguro</option>
-        <option value="Sompo Auto"><i class="bi bi-shield"></i> Sompo Auto</option>
-        <option value="Tokio Marine Seguros"><i class="bi bi-shield"></i> Tokio Marine Seguros</option>
-        <option value="Zurich Brasil Seguros"><i class="bi bi-shield"></i> Zurich Brasil Seguros</option>
-        <option value="Sancor Seguros"><i class="bi bi-shield"></i> Sancor Seguros</option>
-        <option value="Suhai"><i class="bi bi-shield"></i> Suhai</option>
-        <option value="Mitsui"><i class="bi bi-shield"></i> Mitsui</option>
-        <option value="Sura Seguros"><i class="bi bi-shield"></i> Sura Seguros</option>
-        <option value="EZZE"><i class="bi bi-shield"></i> EZZE</option>
-    </select>
-</div>
-
-<div class="form-group">
-    <label><i class="bi bi-shield"></i> Tipo de Seguro</label>
-    <select class="form-control" name="tipo_seguro">
-        <option value="Seguro Auto"><i class="bi bi-car"></i> Seguro Auto</option>
-        <option value="Seguro Moto"><i class="bi bi-motorcycle"></i> Seguro Moto</option>
-        <option value="Seguro de Vida"><i class="bi bi-heart"></i> Seguro de Vida</option>
-        <option value="Seguro Empresarial"><i class="bi bi-building"></i> Seguro Empresarial</option>
-        <option value="Consórcio"><i class="bi bi-handshake"></i> Consórcio</option>
-        <option value="Seguro Transporte"><i class="bi bi-truck"></i> Seguro Transporte</option>
-        <option value="Seguro Saúde"><i class="bi bi-cross"></i> Seguro Saúde</option>
-        <option value="Seguro Dental"><i class="bi bi-tooth"></i> Seguro Dental</option>
-        <option value="Seguro Frota"><i class="bi bi-car-front"></i> Seguro Frota</option>
-        <option value="Seguro Agronegócio"><i class="bi bi-tractor"></i> Seguro Agronegócio</option>
-    </select>
-</div>
-
-            <div class="form-group">
-                <label><i class="bi bi-sticky"></i> Observações</label>
-                <textarea class="form-control" name="observacoes" rows="4"></textarea>
+                <label for="observacoes"><i class="bi bi-sticky"></i> Observações</label>
+                <textarea class="form-control" id="observacoes" name="observacoes" rows="4"></textarea>
             </div>
             <div class="form-group">
-                <label><i class="bi bi-file-earmark-arrow-up"></i> Arquivo PDF</label>
-                <input type="file" class="form-control-file" name="pdf">
+                <label for="pdf"><i class="bi bi-file-earmark-arrow-up"></i> Proposta PDF</label>
+                <input type="file" class="form-control-file" id="pdf" name="pdf">
             </div>
-            
             <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Adicionar</button>
         </form>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
     <script src="../JS/verificar_proposta.js"></script>
-</body>
-</html>
-
 </body>
 </html>

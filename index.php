@@ -2,6 +2,9 @@
 include 'db.php';
 include 'auth.php'; // Certifique-se de que auth.php gerencia a sessão e a autenticação
 
+// Define o fuso horário para Brasília
+date_default_timezone_set('America/Sao_Paulo');
+
 // Inicialização das variáveis de busca
 $search_nome = '';
 $search_cpf = '';
@@ -38,7 +41,7 @@ $notificacoes_result = $stmt->get_result();
 
 // Saudação com base na hora do dia
 $nome_usuario = isset($_SESSION['user_nome']) ? htmlspecialchars($_SESSION['user_nome']) : 'Usuário';
-$hora_atual = date('H');
+$hora_atual = (int)date('H');
 
 if ($hora_atual >= 5 && $hora_atual < 12) {
     $saudacao = "Bom dia, $nome_usuario!";
@@ -77,13 +80,14 @@ $stmt->bind_param(str_repeat('s', count($params)), ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
 
-
-
 // Função para formatar a data
 function formatDate($date) {
     return date('d/m/Y', strtotime($date));
 }
+
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -252,7 +256,7 @@ function formatDate($date) {
             <th><i class="fas fa-percent"></i> Comissão (%)</th>
             <th><i class="fas fa-calculator"></i> Comissão Calculada</th>
             <th><i class="fas fa-tachometer-alt"></i> Status</th>
-            <th><i class="fas fa-file-pdf"></i> Arquivo PDF</th>
+            <th><i class="fas fa-file-pdf"></i> Proposta PDF</th>
             <th><i class="fas fa-cogs"></i> Ações</th>
         </tr>
         </thead>

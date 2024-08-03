@@ -54,34 +54,44 @@ $months = [
     <a href="months.php" class="btn btn-secondary mb-3"><i class="fas fa-arrow-left"></i> Voltar para Meses</a>
     <a href="../PHP_ACTION/export.php?month=<?php echo $month; ?>&year=<?php echo $year; ?>" class="btn btn-info mb-3"><i class="fas fa-file-excel"></i> Exportar para Excel</a>
     <table class="table table-bordered">
-        <thead>
+    <thead>
         <tr>
             <th><i class="fas fa-calendar-day"></i> Início Vigência</th>
-            <th><i class="fas fa-file-alt"></i> Apólice</th>
+            <th><i class="fas fa-file-alt"></i> Proposta</th>
             <th><i class="fas fa-user"></i> Nome</th>
             <th><i class="fas fa-id-card"></i> CPF</th>
-            <th><i class="fas fa-phone"></i> Número</th>
+            <th><i class="fas fa-phone"></i> Celular</th>
             <th><i class="fas fa-envelope"></i> Email</th>
             <th><i class="fas fa-dollar-sign"></i> Prêmio Líquido</th>
+            <th><i class="fas fa-building"></i> Seguradora</th>
+            <th><i class="fas fa-shield-alt"></i> Tipo de Seguro</th>
             <th><i class="fas fa-percent"></i> Comissão (%)</th>
             <th><i class="fas fa-calculator"></i> Comissão Calculada</th>
-            <th><i class="fas fa-tag"></i> Status</th>
-            <th><i class="fas fa-file-pdf"></i> Arquivo PDF</th>
+            <th><i class="fas fa-tachometer-alt"></i> Status</th>
+            <th><i class="fas fa-file-pdf"></i> Proposta PDF</th>
             <th><i class="fas fa-cogs"></i> Ações</th>
         </tr>
-        </thead>
-        <tbody>
+    </thead>
+    <tbody>
         <?php while ($row = $result->fetch_assoc()): ?>
+            <?php
+            // Convertendo a data para o formato brasileiro
+            $inicio_vigencia = new DateTime($row['inicio_vigencia']);
+            $inicio_vigencia_formatado = $inicio_vigencia->format('d/m/Y');
+            $comissao_calculada = $row['premio_liquido'] * ($row['comissao'] / 100);
+            ?>
             <tr>
-                <td><?php echo htmlspecialchars($row['inicio_vigencia']); ?></td>
+                <td><?php echo htmlspecialchars($inicio_vigencia_formatado); ?></td>
                 <td><?php echo htmlspecialchars($row['apolice']); ?></td>
                 <td><?php echo htmlspecialchars($row['nome']); ?></td>
                 <td><?php echo htmlspecialchars($row['cpf']); ?></td>
                 <td><?php echo htmlspecialchars($row['numero']); ?></td>
                 <td><?php echo htmlspecialchars($row['email']); ?></td>
                 <td><?php echo htmlspecialchars($row['premio_liquido']); ?></td>
+                <td><?php echo htmlspecialchars($row['seguradora']); ?></td>
+                <td><?php echo htmlspecialchars($row['tipo_seguro']); ?></td>
                 <td><?php echo htmlspecialchars($row['comissao']); ?></td>
-                <td><?php echo htmlspecialchars($row['premio_liquido'] * ($row['comissao'] / 100)); ?></td>
+                <td><?php echo htmlspecialchars($comissao_calculada); ?></td>
                 <td><?php echo htmlspecialchars($row['status']); ?></td>
                 <td>
                     <?php if ($row['pdf_path']): ?>
@@ -94,8 +104,9 @@ $months = [
                 </td>
             </tr>
         <?php endwhile; ?>
-        </tbody>
-    </table>
+    </tbody>
+</table>
+
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
