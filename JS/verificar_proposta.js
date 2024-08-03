@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const proposta = propostaInput.value;
 
         // Verifica se a proposta já existe
-        fetch('verificar_proposta.php', {
+        fetch('../PHP_ACTION/verificar_proposta.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',

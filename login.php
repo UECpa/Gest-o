@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="CSS/login.css">
 </head>
 <body>
 <div class="container mt-5">
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </button>
             </div>
             <div class="modal-body">
-                <form method="POST" action="register.php">
+                <form method="POST" action="PHP_PAGES/register.php">
                     <div class="form-group">
                         <label for="modal-nome"><i class="fas fa-user"></i> Nome</label>
                         <input type="text" class="form-control" id="modal-nome" name="nome" required>

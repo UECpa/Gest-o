@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; // Conexão com o banco de dados
+include '../db.php'; // Conexão com o banco de dados
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Adicionar nova seguradora
@@ -53,12 +53,12 @@ $result = $conn->query("SELECT * FROM seguradoras");
     <title>Informações da Loja</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="info.css">
+    <link rel="stylesheet" href="../CSS/info.css">
 </head>
 <body>
 <div class="container mt-5">
     <h2 class="mb-4">Informações das Seguradoras</h2>
-    <a href="index.php" class="btn btn-secondary mb-4">
+    <a href="../index.php" class="btn btn-secondary mb-4">
         <i class="bi bi-arrow-left"></i> Voltar
     </a>
 

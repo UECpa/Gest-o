@@ -77,6 +77,8 @@ $stmt->bind_param(str_repeat('s', count($params)), ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
 
+
+
 // Função para formatar a data
 function formatDate($date) {
     return date('d/m/Y', strtotime($date));
@@ -91,7 +93,7 @@ function formatDate($date) {
     <title>Gerenciamento de Clientes</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -102,15 +104,23 @@ function formatDate($date) {
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-                    <a class="nav-link" href="months.php">
+                    <a class="nav-link" href="PHP_PAGES/months.php">
                         <i class="fas fa-users"></i> Clientes
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="info_loja.php">
+                    <a class="nav-link" href="PHP_PAGES/info_loja.php">
                         <i class="fas fa-tachometer-alt"></i> Info MRG
                     </a>
                 </li>
+
+                <li class="nav-item">
+                <form method="POST" action="PHP_ACTION/logout.php" class="nav-link">
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </form>
+            </li>
 
             <!-- Ícone de Notificações -->
             <li class="nav-item dropdown">
@@ -220,12 +230,12 @@ function formatDate($date) {
         </div>
         <div class="form-row">
             <div class="form-group col-md-12">
-                <a href="export.php?search_nome=<?php echo urlencode($search_nome); ?>&search_cpf=<?php echo urlencode($search_cpf); ?>&search_vigencia_de=<?php echo urlencode($search_vigencia_de); ?>&search_vigencia_ate=<?php echo urlencode($search_vigencia_ate); ?>" class="btn btn-info mr-2"><i class="fas fa-file-export"></i> Exportar dados específicos da busca</a>
-                <a href="export.php" class="btn btn-secondary"><i class="fas fa-file-export"></i> Exportar Dados Lista Geral</a>
+                <a href="PHP_ACTION/export.php?search_nome=<?php echo urlencode($search_nome); ?>&search_cpf=<?php echo urlencode($search_cpf); ?>&search_vigencia_de=<?php echo urlencode($search_vigencia_de); ?>&search_vigencia_ate=<?php echo urlencode($search_vigencia_ate); ?>" class="btn btn-info mr-2"><i class="fas fa-file-export"></i> Exportar dados específicos da busca</a>
+                <a href="PHP_ACTION/export.php" class="btn btn-secondary"><i class="fas fa-file-export"></i> Exportar Dados Lista Geral</a>
             </div>
         </div>
     </form>
-    <a href="add.php" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Adicionar Cliente</a>
+    <a href="PHP_PAGES/add.php" class="btn btn-primary mb-3"><i class="fas fa-plus"></i> Adicionar Cliente</a>
     <h3>Lista Geral</h3>
     <table class="table table-striped table-bordered">
         <thead>
@@ -261,7 +271,7 @@ function formatDate($date) {
                 <td><?php echo htmlspecialchars($row['comissao']); ?></td>
                 <td><?php echo htmlspecialchars($row['premio_liquido'] * ($row['comissao'] / 100)); ?></td>
                 <td>
-                    <form method="POST" action="update_status.php">
+                    <form method="POST" action="PHP_ACTION/update_status.php">
                         <input type="hidden" name="id" value="<?php echo htmlspecialchars($row['id']); ?>">
                         <select class="form-control" name="status" onchange="this.form.submit()">
                             <option value="Efetivado" <?php echo $row['status'] == 'Efetivado' ? 'selected' : ''; ?>>Efetivado</option>
@@ -288,13 +298,14 @@ function formatDate($date) {
                     ?>
                 </td>
                 <td>
-                    <?php if ($row['pdf_path']): ?>
-                        <a href="<?php echo htmlspecialchars($row['pdf_path']); ?>" target="_blank">Visualizar PDF</a>
-                    <?php endif; ?>
-                </td>
+    <?php if ($row['pdf_path']): ?>
+        <a href="uploads/<?php echo htmlspecialchars($row['pdf_path']); ?>" target="_blank">Visualizar PDF</a>
+    <?php endif; ?>
+</td>
+
                 <td>
-                    <a href="edit.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
-                    <a href="delete.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Deletar</a>
+                    <a href="PHP_PAGES/edit.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
+                    <a href="PHP_ACTION/delete.php?id=<?php echo htmlspecialchars($row['id']); ?>" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Deletar</a>
                 </td>
             </tr>
         <?php endwhile; ?>
@@ -304,6 +315,6 @@ function formatDate($date) {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="index.js"></script>
+<script src="JS/index.js"></script>
 </body>
 </html>
