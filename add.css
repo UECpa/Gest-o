@@ -1,12 +1,10 @@
-/* styles.css */
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #e9f5e9; /* Fundo verde claro */
-    color: #343a40;
-    margin: 0;
-    padding: 0;
-}
+    background: linear-gradient(to bottom, #aaf2c9, #ffffff);
+    /* Gradiente de verde claro para branco */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
 
 .container {
     background-color: #ffffff;

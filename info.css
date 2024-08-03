@@ -1,0 +1,94 @@
+/* Geral */
+body {
+    background: linear-gradient(to bottom, #aaf2c9, #ffffff);
+    /* Gradiente de verde claro para branco */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+.container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Títulos */
+h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #343a40;
+}
+
+h4 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #495057;
+}
+
+/* Formulário */
+.form-group label {
+    font-weight: bold;
+}
+
+/* Botões */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    border-color: #545b62;
+}
+
+/* Tabela */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #007bff;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Modais */
+.modal-header {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.modal-title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.close {
+    color: #ffffff;
+}
+
+/* Ícones */
+.bi {
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.modal-body .form-group {
+    margin-bottom: 1rem;
+}

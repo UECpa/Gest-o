@@ -1,5 +1,11 @@
 <?php
 include 'db.php';
+session_start(); // Certifique-se de que a sessão está iniciada
+
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 
 $id = $_GET['id'];
 
@@ -14,33 +20,55 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $comissao = $_POST['comissao'];
     $status = $_POST['status'];
     $observacoes = $_POST['observacoes'];
-    
+
+    // Registrar a notificação
+    $usuario_id = $_SESSION['user_id'];
+    $stmt = $conn->prepare("SELECT nome FROM usuarios WHERE id = ?");
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $user_result = $stmt->get_result();
+    $usuario_nome = $user_result->fetch_assoc()['nome'];
+    date_default_timezone_set('America/Sao_Paulo');
+
+    $stmt = $conn->prepare("SELECT nome FROM clientes WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $cliente_result = $stmt->get_result();
+    $nome_cliente = $cliente_result->fetch_assoc()['nome'];
+
+    $mensagem = "Usuário $usuario_nome atualizou proposta de $nome_cliente - " . date('Y-m-d H:i:s');
+    $stmt = $conn->prepare("INSERT INTO notificacoes (usuario_id, mensagem, data_hora) VALUES (?, ?, ?)");
+    $stmt->bind_param("iss", $usuario_id, $mensagem, date('Y-m-d H:i:s'));
+    $stmt->execute();
+
     $pdf_path = NULL;
     if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] == UPLOAD_ERR_OK) {
         $pdf_name = $_FILES['pdf']['name'];
         $pdf_tmp = $_FILES['pdf']['tmp_name'];
-        $pdf_path = 'uploads/' . $pdf_name;
+        $pdf_path = 'uploads/' . basename($pdf_name);
         move_uploaded_file($pdf_tmp, $pdf_path);
     }
 
-    $sql = "UPDATE clientes SET 
-            inicio_vigencia='$inicio_vigencia', apolice='$apolice', nome='$nome', cpf='$cpf', observacoes='$observacoes', numero='$numero', email='$email', premio_liquido='$premio_liquido', comissao='$comissao', status='$status', pdf_path='$pdf_path'
-            WHERE id=$id";
+    $stmt = $conn->prepare("UPDATE clientes SET inicio_vigencia = ?, apolice = ?, nome = ?, cpf = ?, observacoes = ?, numero = ?, email = ?, premio_liquido = ?, comissao = ?, status = ?, pdf_path = ? WHERE id = ?");
+    $stmt->bind_param("sssssssssdsi", $inicio_vigencia, $apolice, $nome, $cpf, $observacoes, $numero, $email, $premio_liquido, $comissao, $status, $pdf_path, $id);
 
-    if ($conn->query($sql) === TRUE) {
+    if ($stmt->execute()) {
         header('Location: index.php');
+        exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $stmt->error;
     }
 } else {
-    $sql = "SELECT * FROM clientes WHERE id=$id";
-    $result = $conn->query($sql);
+    $stmt = $conn->prepare("SELECT * FROM clientes WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+    $result = $stmt->get_result();
     $row = $result->fetch_assoc();
 }
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,5 +138,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="verificar_proposta.js"></script>
 </body>
 </html>

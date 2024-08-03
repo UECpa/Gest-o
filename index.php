@@ -14,6 +14,28 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// Processar exclusão de notificações
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_notification'])) {
+    $notificacao_id = $_POST['notificacao_id'];
+
+    // Excluir a notificação
+    $stmt = $conn->prepare("DELETE FROM notificacoes WHERE id = ? AND usuario_id = ?");
+    $stmt->bind_param("ii", $notificacao_id, $_SESSION['user_id']);
+    $stmt->execute();
+    $stmt->close();
+
+    // Redirecionar para evitar resubmissão do formulário
+    header('Location: index.php');
+    exit();
+}
+
+// Obter as notificações do usuário logado
+$usuario_id = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT * FROM notificacoes WHERE usuario_id = ? ORDER BY data_hora DESC");
+$stmt->bind_param("i", $usuario_id);
+$stmt->execute();
+$notificacoes_result = $stmt->get_result();
+
 // Saudação com base na hora do dia
 $nome_usuario = isset($_SESSION['user_nome']) ? htmlspecialchars($_SESSION['user_nome']) : 'Usuário';
 $hora_atual = date('H');
@@ -72,37 +94,104 @@ function formatDate($date) {
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container">
-        <a class="navbar-brand" href="#">
-            <img src="IMG/LogoM.png" alt="MRG Corretora de Seguros" height="40">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<img src="IMG/Logo.png" alt="MRG Corretora de Seguros" height="100">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
                     <a class="nav-link" href="months.php">
                         <i class="fas fa-users"></i> Clientes
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="https://mrgseguros.com.br/site/">
-                        <i class="fas fa-tachometer-alt"></i> MRG Site
+                    <a class="nav-link" href="info_loja.php">
+                        <i class="fas fa-tachometer-alt"></i> Info MRG
                     </a>
                 </li>
-                <li class="nav-item">
-                    <form method="POST" action="logout.php" class="nav-link mb-0">
-                        <button type="submit" class="btn btn-outline-light">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </div>
+
+            <!-- Ícone de Notificações -->
+            <li class="nav-item dropdown">
+                <a class="nav-link" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="bi bi-bell"></i>
+                    <?php if ($notificacoes_result->num_rows > 0): ?>
+                        <span class="badge badge-danger"><?php echo $notificacoes_result->num_rows; ?></span>
+                    <?php endif; ?>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
+                    <!-- Notificações -->
+                    <?php if ($notificacoes_result->num_rows > 0): ?>
+                        <?php while ($notificacao = $notificacoes_result->fetch_assoc()): ?>
+                            <div class="dropdown-item">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <?php echo htmlspecialchars($notificacao['mensagem']); ?>
+                                        <small class="text-muted"><?php echo date('d/m/Y H:i', strtotime($notificacao['data_hora'])); ?></small>
+                                    </div>
+                                    <form method="POST" style="display:inline;">
+                                        <input type="hidden" name="notificacao_id" value="<?php echo $notificacao['id']; ?>">
+                                        <button type="submit" name="delete_notification" class="btn btn-sm btn-danger">
+                                            <i class="bi bi-x"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                                <hr>
+                            </div>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <a class="dropdown-item" href="#">Sem notificações</a>
+                    <?php endif; ?>
+                </div>
+            </li>
+        </ul>
     </div>
 </nav>
+
+<!-- Modal de Notificações -->
+<div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationModalLabel">
+                    <i class="bi bi-bell-fill"></i> Notificações
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php if ($notificacoes_result->num_rows > 0): ?>
+                    <?php while ($notificacao = $notificacoes_result->fetch_assoc()): ?>
+                        <div class="notification-item d-flex align-items-start mb-3">
+                            <div class="me-2">
+                                <i class="bi bi-info-circle-fill text-primary"></i>
+                            </div>
+                            <div class="flex-grow-1">
+                                <p class="mb-1"><?php echo htmlspecialchars($notificacao['mensagem']); ?></p>
+                                <small class="text-muted"><?php echo date('d/m/Y H:i', strtotime($notificacao['data_hora'])); ?></small>
+                            </div>
+                            <form method="POST" class="ms-2" style="display:inline;">
+                                <input type="hidden" name="notificacao_id" value="<?php echo $notificacao['id']; ?>">
+                                <button type="submit" name="delete_notification" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                        <hr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <p class="text-center">Sem notificações</p>
+                <?php endif; ?>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="bi bi-x-circle"></i> Fechar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <div class="container mt-5">
     <p class="saudacao"><?php echo $saudacao; ?></p>
@@ -215,5 +304,6 @@ function formatDate($date) {
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="index.js"></script>
 </body>
 </html>

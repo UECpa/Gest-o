@@ -1,5 +1,6 @@
 <?php
 include 'db.php';
+session_start(); // Inicie a sessão
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $inicio_vigencia = $_POST['inicio_vigencia'];
@@ -14,6 +15,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $seguradora = $_POST['seguradora'];
     $tipo_seguro = $_POST['tipo_seguro'];
     $observacoes = $_POST['observacoes'];
+
+    // Registrar a notificação
+    $usuario_id = $_SESSION['user_id'];
+    date_default_timezone_set('America/Sao_Paulo');
+    // Obtenha o nome do usuário
+    $stmt = $conn->prepare("SELECT nome FROM usuarios WHERE id = ?");
+    $stmt->bind_param("i", $usuario_id);
+    $stmt->execute();
+    $user_result = $stmt->get_result();
+    $usuario_nome = $user_result->fetch_assoc()['nome'];
+
+    $mensagem = "Usuário $usuario_nome adicionou proposta de $nome - " . date('Y-m-d H:i:s');
+    $stmt = $conn->prepare("INSERT INTO notificacoes (usuario_id, mensagem, data_hora) VALUES (?, ?, ?)");
+    $stmt->bind_param("iss", $usuario_id, $mensagem, $mensagem);
+    $stmt->execute();
     
     $pdf_path = NULL;
     if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] == UPLOAD_ERR_OK) {
@@ -37,6 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -56,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <input type="date" class="form-control" name="inicio_vigencia" required>
             </div>
             <div class="form-group">
-                <label><i class="bi bi-file-earmark-text"></i> Apólice</label>
+                <label><i class="bi bi-file-earmark-text"></i> Proposta</label>
                 <input type="text" class="form-control" name="apolice" required>
             </div>
             <div class="form-group">
@@ -69,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="form-group">
                 <label><i class="bi bi-telephone"></i> Celular</label>
-                <input type="text" class="form-control" name="numero" required>
+                <input type="number" class="form-control" name="numero" required>
             </div>
             <div class="form-group">
                 <label><i class="bi bi-envelope"></i> Email</label>
@@ -142,6 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="verificar_proposta.js"></script>
 </body>
 </html>
 
