@@ -2,15 +2,21 @@
 include '../db.php';
 
 $month = isset($_GET['month']) ? $_GET['month'] : '';
-$year = date('Y'); // Podemos modificar isso se quisermos filtrar por ano também
+$year = isset($_GET['year']) ? $_GET['year'] : date('Y');
 
 if ($month) {
     // Consulta para obter as seguradoras, tipos de seguro, prêmio líquido e comissão
-    $sql = "SELECT seguradora, tipo_seguro, SUM(premio_liquido) as total_premio_liquido, SUM(premio_liquido * (comissao / 100)) as total_comissao, COUNT(*) as total_clientes FROM clientes WHERE MONTH(inicio_vigencia) = '$month' AND YEAR(inicio_vigencia) = '$year' GROUP BY seguradora, tipo_seguro";
+    $sql = "SELECT seguradora, tipo_seguro, SUM(premio_liquido) as total_premio_liquido, SUM(premio_liquido * (comissao / 100)) as total_comissao, COUNT(*) as total_clientes 
+            FROM clientes 
+            WHERE MONTH(inicio_vigencia) = '$month' AND YEAR(inicio_vigencia) = '$year' 
+            GROUP BY seguradora, tipo_seguro";
     $result = $conn->query($sql);
 
     // Consulta para contar as apólices canceladas e efetivadas
-    $status_sql = "SELECT status, COUNT(*) as total FROM clientes WHERE MONTH(inicio_vigencia) = '$month' AND YEAR(inicio_vigencia) = '$year' GROUP BY status";
+    $status_sql = "SELECT status, COUNT(*) as total 
+                   FROM clientes 
+                   WHERE MONTH(inicio_vigencia) = '$month' AND YEAR(inicio_vigencia) = '$year' 
+                   GROUP BY status";
     $status_result = $conn->query($status_sql);
 
     if ($result->num_rows > 0) {

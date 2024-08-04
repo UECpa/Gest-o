@@ -110,13 +110,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group col-md-6">
                     <label for="cpf"><i class="bi bi-card-text"></i> CPF</label>
-                    <input type="text" class="form-control" id="cpf" name="cpf" value="<?php echo htmlspecialchars($row['cpf']); ?>" required>
+                    <input type="number" class="form-control" id="cpf" name="cpf" value="<?php echo htmlspecialchars($row['cpf']); ?>" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="numero"><i class="bi bi-telephone"></i> Número</label>
-                    <input type="text" class="form-control" id="numero" name="numero" value="<?php echo htmlspecialchars($row['numero']); ?>" required>
+                    <input type="number" class="form-control" id="numero" name="numero" value="<?php echo htmlspecialchars($row['numero']); ?>" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="email"><i class="bi bi-envelope"></i> Email</label>
@@ -169,6 +169,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Mitsui" <?php if ($row['seguradora'] == 'Mitsui') echo 'selected'; ?>>Mitsui</option>
                         <option value="Sura Seguros" <?php if ($row['seguradora'] == 'Sura Seguros') echo 'selected'; ?>>Sura Seguros</option>
                         <option value="EZZE" <?php if ($row['seguradora'] == 'EZZE') echo 'selected'; ?>>EZZE</option>
+                        <option value="EZZE" <?php if ($row['seguradora'] == 'EZZE') echo 'selected'; ?>>EZZE</option>
+<option value="Capemisa" <?php if ($row['seguradora'] == 'Capemisa') echo 'selected'; ?>>Capemisa</option>
+<option value="AKAD" <?php if ($row['seguradora'] == 'AKAD') echo 'selected'; ?>>AKAD</option>
+<option value="AssistCard" <?php if ($row['seguradora'] == 'AssistCard') echo 'selected'; ?>>AssistCard</option>
+<option value="AXA" <?php if ($row['seguradora'] == 'AXA') echo 'selected'; ?>>AXA</option>
+<option value="Ituran" <?php if ($row['seguradora'] == 'Ituran') echo 'selected'; ?>>Ituran</option>
+<option value="Pottencial" <?php if ($row['seguradora'] == 'Pottencial') echo 'selected'; ?>>Pottencial</option>
+<option value="SulAmerica" <?php if ($row['seguradora'] == 'SulAmerica') echo 'selected'; ?>>SulAmerica</option>
+<option value="VitalCard" <?php if ($row['seguradora'] == 'VitalCard') echo 'selected'; ?>>VitalCard</option>
+
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -184,6 +194,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Seguro Dental" <?php if ($row['tipo_seguro'] == 'Seguro Dental') echo 'selected'; ?>>Seguro Dental</option>
                         <option value="Seguro Frota" <?php if ($row['tipo_seguro'] == 'Seguro Frota') echo 'selected'; ?>>Seguro Frota</option>
                         <option value="Seguro Agronegócio" <?php if ($row['tipo_seguro'] == 'Seguro Agronegócio') echo 'selected'; ?>>Seguro Agronegócio</option>
+                        <option value="Acidenes Pessoais" <?php if ($row['tipo_seguro'] == 'Acidenes Pessoais') echo 'selected'; ?>>Acidenes Pessoais</option>
                     </select>
                 </div>
             </div>

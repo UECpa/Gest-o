@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
             <div class="form-group col-md-6">
     <label for="numero"><i class="bi bi-telephone"></i> Celular</label>
-    <input type="text" class="form-control" id="numero" name="numero" required>
+    <input type="number" class="form-control" id="numero" name="numero" required>
 </div>
                 <div class="form-group col-md-6">
                     <label for="email"><i class="bi bi-envelope"></i> Email</label>
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Allianz Seguros">Allianz Seguros</option>
                         <option value="Azul Seguros">Azul Seguros</option>
                         <option value="HDI Seguros">HDI Seguros</option>
-                        <option value="Liberty Seguros">Liberty Seguros</option>
+                        <option value="Liberty Seguros">Yelum</option>
                         <option value="MAPFRE">MAPFRE</option>
                         <option value="Porto Seguro">Porto Seguro</option>
                         <option value="Sompo Auto">Sompo Auto</option>
@@ -136,6 +136,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Mitsui">Mitsui</option>
                         <option value="Sura Seguros">Sura Seguros</option>
                         <option value="EZZE">EZZE</option>
+                        <option value="Capemisa">Capemisa</option>
+                        <option value="AKAD">AKAD</option>
+                        <option value="AssistCard">AssistCard</option>
+                        <option value="AXA">AXA</option>
+                        <option value="Ituran">Ituran</option>
+                        <option value="Pottencial">Pottencial</option>
+                        <option value="SulAmerica">SulAmerica</option>
+                        <option value="VitalCard">VitalCard</option>
                     </select>
                 </div>
             </div>
@@ -143,6 +151,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="tipo_seguro"><i class="bi bi-shield"></i> Tipo de Seguro</label>
                 <select class="form-control" id="tipo_seguro" name="tipo_seguro">
                     <option value="Seguro Auto">Seguro Auto</option>
+                    <option value="Acidenes Pessoais">Acidenes Pessoais</option>
                     <option value="Seguro Moto">Seguro Moto</option>
                     <option value="Seguro de Vida">Seguro de Vida</option>
                     <option value="Seguro Empresarial">Seguro Empresarial</option>

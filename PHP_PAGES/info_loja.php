@@ -93,7 +93,7 @@ $result = $conn->query("SELECT * FROM seguradoras");
                         </div>
                         <div class="form-group">
                             <label for="numero_0800">Número 0800</label>
-                            <input type="text" class="form-control" id="numero_0800" name="numero_0800" required>
+                            <input type="number" class="form-control" id="numero_0800" name="numero_0800" required>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -180,7 +180,7 @@ $result = $conn->query("SELECT * FROM seguradoras");
                             </div>
                             <div class="form-group">
                                 <label for="numero_0800<?php echo $row['id']; ?>">Número 0800</label>
-                                <input type="text" class="form-control" id="numero_0800<?php echo $row['id']; ?>" name="numero_0800" value="<?php echo htmlspecialchars($row['numero_0800']); ?>" required>
+                                <input type="number" class="form-control" id="numero_0800<?php echo $row['id']; ?>" name="numero_0800" value="<?php echo htmlspecialchars($row['numero_0800']); ?>" required>
                             </div>
                         </div>
                         <div class="modal-footer">

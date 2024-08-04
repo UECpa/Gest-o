@@ -5,6 +5,16 @@ include 'auth.php'; // Certifique-se de que auth.php gerencia a sessão e a aute
 // Define o fuso horário para Brasília
 date_default_timezone_set('America/Sao_Paulo');
 
+// Número de registros por página
+$registros_por_pagina = 50;
+
+// Obter a página atual da URL, padrão é 1 se não for definido
+$pagina_atual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
+$pagina_atual = max(1, $pagina_atual); // Garantir que a página atual seja pelo menos 1
+
+// Calcular o OFFSET para a consulta
+$offset = ($pagina_atual - 1) * $registros_por_pagina;
+
 // Inicialização das variáveis de busca
 $search_nome = '';
 $search_cpf = '';
@@ -57,9 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $search_vigencia_ate = $_POST['search_vigencia_ate'] ?? '';
 }
 
+// Inicializar o array de parâmetros
+$params = ["%$search_nome%", "%$search_cpf%"];
+
 // Preparar a consulta com base nos filtros de busca
 $sql = "SELECT * FROM clientes WHERE nome LIKE ? AND cpf LIKE ?";
-$params = ["%$search_nome%", "%$search_cpf%"];
 
 if ($search_vigencia_de && $search_vigencia_ate) {
     $sql .= " AND inicio_vigencia BETWEEN ? AND ?";
@@ -73,16 +85,47 @@ if ($search_vigencia_de && $search_vigencia_ate) {
     $params[] = $search_vigencia_ate;
 }
 
+// Adicionar LIMIT e OFFSET
+$sql .= " LIMIT ? OFFSET ?";
+$params[] = $registros_por_pagina;
+$params[] = $offset;
+
 $stmt = $conn->prepare($sql);
-$stmt->bind_param(str_repeat('s', count($params)), ...$params);
+$stmt->bind_param(str_repeat('s', count($params) - 2) . 'ii', ...$params);
 $stmt->execute();
 $result = $stmt->get_result();
+
+// Contar o total de registros
+$count_sql = "SELECT COUNT(*) AS total FROM clientes WHERE nome LIKE ? AND cpf LIKE ?";
+$count_params = ["%$search_nome%", "%$search_cpf%"];
+
+if ($search_vigencia_de && $search_vigencia_ate) {
+    $count_sql .= " AND inicio_vigencia BETWEEN ? AND ?";
+    $count_params[] = $search_vigencia_de;
+    $count_params[] = $search_vigencia_ate;
+} elseif ($search_vigencia_de) {
+    $count_sql .= " AND inicio_vigencia >= ?";
+    $count_params[] = $search_vigencia_de;
+} elseif ($search_vigencia_ate) {
+    $count_sql .= " AND inicio_vigencia <= ?";
+    $count_params[] = $search_vigencia_ate;
+}
+
+$count_stmt = $conn->prepare($count_sql);
+$count_stmt->bind_param(str_repeat('s', count($count_params)), ...$count_params);
+$count_stmt->execute();
+$count_result = $count_stmt->get_result();
+$total_registros = $count_result->fetch_assoc()['total'];
+
+// Calcular o número total de páginas
+$total_paginas = ceil($total_registros / $registros_por_pagina);
 
 // Função para formatar a data
 function formatDate($date) {
     return date('d/m/Y', strtotime($date));
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -92,6 +135,7 @@ function formatDate($date) {
     <title>Gerenciamento de Clientes</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" href="IMG/logoM.png" type="image/x-icon">
     <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
@@ -311,9 +355,23 @@ function formatDate($date) {
         </tbody>
     </table>
 </div>
+<div class="d-flex justify-content-center mt-4">
+    <?php if ($pagina_atual > 1): ?>
+        <a href="?pagina=<?php echo $pagina_atual - 1; ?>" class="btn btn-primary mx-2">
+            <i class="fas fa-chevron-left"></i> Página Anterior
+        </a>
+    <?php endif; ?>
+    <?php if ($pagina_atual < $total_paginas): ?>
+        <a href="?pagina=<?php echo $pagina_atual + 1; ?>" class="btn btn-primary mx-2">
+            Página Seguinte <i class="fas fa-chevron-right"></i>
+        </a>
+    <?php endif; ?>
+</div>
+
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="JS/index.js"></script>
 </body>
 </html>
