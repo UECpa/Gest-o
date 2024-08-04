@@ -1,29 +1,49 @@
+/* Estilos Gerais */
 body {
-    background-color: #eaf4e4; /* Verde claro bem rasa */
+    background-color: #eaf4e4; /* Verde claro bem suave */
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    color: #333; /* Cor padrão do texto */
+    margin: 0;
+    padding: 0;
 }
+
+/* Títulos */
 h2 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
+    color: #343a40; /* Cor escura para melhor contraste */
 }
 
+/* Tabela */
 .table {
-    background-color: #fff;
-    border-radius: 0.5rem;
+    background-color: #fff; /* Fundo branco para a tabela */
+    border-radius: 0.5rem; /* Bordas arredondadas */
+    width: 100%; /* Ocupa a largura total do contêiner */
+    border-collapse: collapse; /* Colapsar bordas para uma aparência mais limpa */
 }
 
 .table th, .table td {
-    vertical-align: middle;
+    vertical-align: middle; /* Alinhamento vertical centralizado */
+    padding: 0.75rem; /* Padding padrão das células */
 }
 
 .table thead {
     background-color: #d4edda; /* Verde claro para o cabeçalho */
+    color: #333; /* Cor do texto do cabeçalho */
 }
 
+/* Botões */
 .btn {
-    font-size: 0.875rem;
-    padding: 0.5rem 1rem;
+    font-size: 0.875rem; /* Tamanho da fonte dos botões */
+    padding: 0.5rem 1rem; /* Padding interno dos botões */
+    border-radius: 0.25rem; /* Bordas arredondadas dos botões */
+    color: #fff; /* Cor do texto dos botões */
+    border: none; /* Remove bordas padrão */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s, border-color 0.3s; /* Transições suaves */
 }
 
+/* Botões Informativos */
 .btn-info {
     background-color: #17a2b8;
     border-color: #17a2b8;
@@ -34,6 +54,7 @@ h2 {
     border-color: #117a8b;
 }
 
+/* Botões Secundários */
 .btn-secondary {
     background-color: #6c757d;
     border-color: #6c757d;
@@ -44,6 +65,7 @@ h2 {
     border-color: #545b62;
 }
 
+/* Botões de Alerta */
 .btn-warning {
     background-color: #ffc107;
     border-color: #ffc107;
@@ -54,6 +76,7 @@ h2 {
     border-color: #d39e00;
 }
 
+/* Botões de Perigo */
 .btn-danger {
     background-color: #dc3545;
     border-color: #dc3545;
@@ -64,16 +87,33 @@ h2 {
     border-color: #bd2130;
 }
 
+/* Cartões */
 .card-header {
     font-size: 1.25rem;
-    background-color: #d4edda;
+    background-color: #d4edda; /* Verde claro para o cabeçalho dos cartões */
+    border-bottom: 1px solid #c3e6cb; /* Borda sutil inferior */
+    padding: 1rem; /* Padding do cabeçalho */
+    border-radius: 0.25rem; /* Bordas arredondadas */
 }
 
 .card-body a {
     font-size: 1rem;
+    color: #007bff; /* Cor dos links nos cartões */
+    text-decoration: none; /* Remove sublinhado dos links */
 }
 
+.card-body a:hover {
+    text-decoration: underline; /* Sublinha os links ao passar o mouse */
+}
+
+/* Links dentro da tabela */
 .table td a {
     display: inline-flex;
     align-items: center;
+    color: #007bff; /* Cor dos links na tabela */
+    text-decoration: none; /* Remove sublinhado dos links */
+}
+
+.table td a:hover {
+    text-decoration: underline; /* Sublinha os links ao passar o mouse */
 }

@@ -159,9 +159,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <textarea class="form-control" id="observacoes" name="observacoes" rows="4"></textarea>
             </div>
             <div class="form-group">
-                <label for="pdf"><i class="bi bi-file-earmark-arrow-up"></i> Proposta PDF</label>
-                <input type="file" class="form-control-file" id="pdf" name="pdf">
-            </div>
+    <label for="pdf"><i class="bi bi-file-earmark-arrow-up"></i> Proposta PDF</label>
+    <input type="file" class="form-control-file" id="pdf" name="pdf" required>
+</div>
             <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Adicionar</button>
         </form>
     </div>

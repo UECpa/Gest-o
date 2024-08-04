@@ -1,30 +1,35 @@
 /* styles.css */
 
+/* Estilos Globais */
 body {
     background: linear-gradient(to right, #e0f7fa, #b9fbc0); /* Gradiente claro de verde e azul */
     font-family: Arial, sans-serif; /* Fonte padrão */
     margin: 0;
     padding: 0;
     height: 100vh; /* Altura total da viewport */
+    display: flex; /* Para centralizar o conteúdo verticalmente */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
 }
 
+/* Container */
 .container {
     max-width: 500px; /* Limita a largura do container */
-    margin: 0 auto; /* Centraliza o container horizontalmente */
     padding: 20px;
     background-color: #ffffff; /* Fundo branco para o container */
     border-radius: 8px; /* Cantos arredondados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve */
-    position: relative; /* Para ajuste da logo */
-    top: 50%;
-    transform: translateY(-50%); /* Centraliza verticalmente */
 }
 
+/* Títulos */
 .container h2 {
     text-align: center;
     margin-bottom: 20px;
+    color: #333; /* Cor escura para os títulos */
+    font-size: 2rem; /* Tamanho da fonte do título */
 }
 
+/* Logo */
 .container .logo {
     display: block;
     max-width: 100%;
@@ -32,23 +37,35 @@ body {
     margin: 0 auto 20px;
 }
 
+/* Alertas */
 .alert {
     border-radius: 4px; /* Cantos arredondados para alertas */
     font-size: 16px; /* Tamanho da fonte do alerta */
+    padding: 15px; /* Padding interno para alertas */
 }
 
+/* Formulário */
 .form-group label {
     font-weight: bold; /* Negrito para labels */
+    color: #333; /* Cor do texto das labels */
 }
 
 .form-control {
     border-radius: 4px; /* Cantos arredondados para campos de formulário */
     border: 1px solid #ced4da; /* Borda cinza clara */
+    padding: 10px; /* Padding interno para campos de formulário */
 }
 
+/* Botões */
 .btn-primary {
     background-color: #007bff; /* Cor de fundo do botão */
     border-color: #007bff; /* Cor da borda do botão */
+    color: #ffffff; /* Cor do texto do botão */
+    font-size: 16px; /* Tamanho da fonte do botão */
+    padding: 10px 20px; /* Padding interno do botão */
+    border-radius: 4px; /* Bordas arredondadas do botão */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s, border-color 0.3s; /* Transição suave para hover */
 }
 
 .btn-primary:hover {
@@ -56,11 +73,14 @@ body {
     border-color: #004085; /* Cor da borda do botão ao passar o mouse */
 }
 
+/* Links */
 a {
     color: #007bff; /* Cor dos links */
     text-decoration: none; /* Remove sublinhado dos links */
+    transition: color 0.3s; /* Transição suave para hover */
 }
 
 a:hover {
     text-decoration: underline; /* Sublinha o link ao passar o mouse */
+    color: #0056b3; /* Cor do link ao passar o mouse */
 }

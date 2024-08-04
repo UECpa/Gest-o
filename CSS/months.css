@@ -1,56 +1,87 @@
+/* Estilos Globais */
 body {
-    background: linear-gradient(to bottom, #aaf2c9, #ffffff);
-    /* Gradiente de verde claro para branco */
+    background: linear-gradient(to bottom, #aaf2c9, #ffffff); /* Gradiente de verde claro para branco */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-  }
-        .container {
-            margin-top: 30px;
-        }
-        .card {
-            border-radius: 15px;
-            border: 1px solid #e0e0e0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            font-size: 18px;
-            border-bottom: 1px solid #0056b3;
-        }
-        .card-body {
-            padding: 15px;
-        }
-        .btn-primary,
-        .btn-info {
-            border-radius: 25px;
-            font-size: 16px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-info {
-            background-color: #17a2b8;
-            border: none;
-        }
-        .btn-info:hover {
-            background-color: #117a8b;
-        }
-        .modal-content {
-            border-radius: 15px;
-        }
-        .modal-header {
-            border-bottom: none;
-        }
-        .modal-footer {
-            border-top: none;
-        }
-        .modal-title {
-            font-size: 18px;
-        }
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    color: #333; /* Cor do texto padrão */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container */
+.container {
+    margin-top: 30px;
+    padding: 0 15px; /* Adiciona padding lateral para o container */
+}
+
+/* Cartões */
+.card {
+    border-radius: 15px; /* Bordas arredondadas */
+    border: 1px solid #e0e0e0; /* Borda suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-bottom: 20px;
+    background-color: #ffffff; /* Fundo branco para o cartão */
+}
+
+.card-header {
+    background-color: #007bff; /* Azul para o cabeçalho */
+    color: #ffffff; /* Cor do texto do cabeçalho */
+    font-size: 18px; /* Tamanho da fonte do cabeçalho */
+    border-bottom: 1px solid #0056b3; /* Borda inferior azul escuro */
+    padding: 15px; /* Padding interno do cabeçalho */
+}
+
+.card-body {
+    padding: 15px; /* Padding interno do corpo do cartão */
+}
+
+/* Botões */
+.btn-primary,
+.btn-info {
+    border-radius: 25px; /* Bordas arredondadas dos botões */
+    font-size: 16px; /* Tamanho da fonte dos botões */
+    padding: 10px 20px; /* Padding interno dos botões */
+    color: #ffffff; /* Cor do texto dos botões */
+    border: none; /* Remove a borda padrão */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s; /* Transição suave para hover */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Azul para o botão primário */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Azul escuro ao passar o mouse */
+}
+
+.btn-info {
+    background-color: #17a2b8; /* Azul para o botão de informação */
+}
+
+.btn-info:hover {
+    background-color: #117a8b; /* Azul escuro ao passar o mouse */
+}
+
+/* Modais */
+.modal-content {
+    border-radius: 15px; /* Bordas arredondadas do conteúdo do modal */
+}
+
+.modal-header {
+    background-color: #007bff; /* Azul para o cabeçalho do modal */
+    color: #ffffff; /* Cor do texto do cabeçalho do modal */
+    border-bottom: none; /* Remove a borda inferior do cabeçalho do modal */
+    padding: 15px; /* Padding interno do cabeçalho do modal */
+}
+
+.modal-footer {
+    border-top: none; /* Remove a borda superior do rodapé do modal */
+    padding: 15px; /* Padding interno do rodapé do modal */
+}
+
+.modal-title {
+    font-size: 18px; /* Tamanho da fonte do título do modal */
+}

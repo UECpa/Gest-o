@@ -1,59 +1,81 @@
+/* Definindo o estilo geral do corpo da página */
 body {
-    background: linear-gradient(to bottom, #aaf2c9, #ffffff);
-    /* Gradiente de verde claro para branco */
+    background: linear-gradient(to bottom, #aaf2c9, #ffffff); /* Gradiente verde claro para branco */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-  }
+    font-family: 'Arial', sans-serif; /* Fonte padrão para uma aparência mais limpa */
+}
 
+/* Estilo do container principal */
 .container {
     background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px; /* Bordas arredondadas mais suaves */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra mais suave e moderna */
     padding: 30px;
-    margin-top: 50px;
+    margin-top: 60px; /* Margem superior um pouco maior */
+    max-width: 800px; /* Largura máxima para o container */
+    margin: 60px auto; /* Centralizando o container horizontalmente */
 }
 
+/* Estilo dos títulos */
 h2 {
-    color: #28a745; /* Verde mais escuro para o título */
-    margin-bottom: 20px;
+    color: #28a745; /* Verde primário */
+    margin-bottom: 25px; /* Margem inferior um pouco maior */
+    font-size: 2rem; /* Tamanho de fonte mais destacado */
+    font-weight: 600; /* Peso da fonte mais forte */
 }
 
+/* Estilo dos formulários */
 form {
-    max-width: 600px;
-    margin: 0 auto;
+    max-width: 700px; /* Largura máxima para formulários */
+    margin: 0 auto; /* Centralizando o formulário */
 }
 
+/* Estilo dos campos de formulário */
 .form-control, .form-control-file {
-    border-radius: 0.25rem;
+    border-radius: 0.5rem; /* Bordas mais arredondadas */
     border: 1px solid #ced4da;
-    padding: 10px;
-    margin-bottom: 15px;
+    padding: 12px; /* Padding um pouco maior */
+    margin-bottom: 20px; /* Margem inferior maior */
 }
 
+/* Estilo para o estado de foco dos campos de formulário */
 .form-control:focus, .form-control-file:focus {
     border-color: #28a745; /* Verde para o foco */
     box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25); /* Verde suave */
 }
 
+/* Estilo do botão primário */
 .btn-primary {
     background-color: #28a745; /* Verde primário */
     border: none;
-    border-radius: 0.25rem;
-    padding: 10px 20px;
+    border-radius: 0.5rem; /* Bordas arredondadas do botão */
+    padding: 12px 24px; /* Padding maior para um botão mais robusto */
+    color: #ffffff; /* Texto branco */
+    font-size: 1rem; /* Tamanho da fonte do botão */
+    font-weight: 500; /* Peso da fonte do botão */
+    cursor: pointer; /* Cursor de ponteiro para indicar clique */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
 }
 
+/* Estilo do botão primário ao passar o mouse */
 .btn-primary:hover {
     background-color: #218838; /* Verde escuro ao passar o mouse */
-    color: #ffffff;
+    color: #ffffff; /* Garantir que o texto permaneça branco */
 }
 
+/* Estilo do grupo de formulários e rótulos */
 .form-group label {
     display: flex;
     align-items: center;
+    font-size: 1rem; /* Tamanho da fonte do rótulo */
+    color: #495057; /* Cor do texto do rótulo */
+    margin-bottom: 10px; /* Margem inferior dos rótulos */
 }
 
+/* Estilo dos ícones dentro dos rótulos */
 .form-group label i {
-    margin-right: 10px;
+    margin-right: 12px; /* Margem direita maior para um espaçamento mais confortável */
     color: #28a745; /* Verde para os ícones */
 }

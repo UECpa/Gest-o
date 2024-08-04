@@ -1,77 +1,105 @@
 /* Geral */
 body {
-    background: linear-gradient(to bottom, #aaf2c9, #ffffff);
-    /* Gradiente de verde claro para branco */
+    background: linear-gradient(to bottom, #aaf2c9, #ffffff); /* Gradiente verde claro para branco */
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-  }
+    font-family: Arial, sans-serif; /* Fonte padrão */
+    color: #333; /* Cor do texto padrão */
+    margin: 0;
+    padding: 0;
+}
 
+/* Container principal */
 .container {
     background-color: #ffffff;
-    border-radius: 8px;
+    border-radius: 8px; /* Bordas arredondadas */
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin: 20px auto; /* Centralizando o container */
+    max-width: 900px; /* Largura máxima do container */
 }
 
 /* Títulos */
 h2 {
     font-size: 24px;
     font-weight: bold;
-    color: #343a40;
+    color: #343a40; /* Cor do texto dos títulos */
+    margin-bottom: 20px; /* Espaço abaixo dos títulos */
 }
 
 h4 {
     font-size: 18px;
     font-weight: bold;
-    color: #495057;
+    color: #495057; /* Cor do texto dos subtítulos */
+    margin-bottom: 15px; /* Espaço abaixo dos subtítulos */
 }
 
 /* Formulário */
 .form-group label {
     font-weight: bold;
+    color: #333; /* Cor do texto dos labels */
 }
 
 /* Botões */
 .btn-primary {
-    background-color: #007bff;
+    background-color: #007bff; /* Azul primário */
     border-color: #007bff;
+    color: #ffffff; /* Cor do texto dos botões */
+    border-radius: 4px; /* Bordas arredondadas dos botões */
+    padding: 10px 20px; /* Padding interno dos botões */
+    font-size: 16px; /* Tamanho da fonte dos botões */
+    font-weight: bold; /* Peso da fonte dos botões */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
 }
 
 .btn-primary:hover {
-    background-color: #0056b3;
+    background-color: #0056b3; /* Azul escuro ao passar o mouse */
     border-color: #004085;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #6c757d; /* Cinza secundário */
     border-color: #6c757d;
+    color: #ffffff; /* Cor do texto dos botões */
+    border-radius: 4px; /* Bordas arredondadas dos botões */
+    padding: 10px 20px; /* Padding interno dos botões */
+    font-size: 16px; /* Tamanho da fonte dos botões */
+    font-weight: bold; /* Peso da fonte dos botões */
+    cursor: pointer; /* Cursor de ponteiro */
+    transition: background-color 0.3s, border-color 0.3s; /* Transição suave */
 }
 
 .btn-secondary:hover {
-    background-color: #5a6268;
+    background-color: #5a6268; /* Cinza escuro ao passar o mouse */
     border-color: #545b62;
 }
 
 /* Tabela */
 .table {
-    margin-bottom: 0;
+    width: 100%; /* Largura completa */
+    border-collapse: collapse; /* Colapsar bordas */
+    margin-bottom: 20px; /* Margem inferior */
 }
 
 .table th {
-    background-color: #007bff;
-    color: #ffffff;
-    font-weight: bold;
+    background-color: #007bff; /* Azul primário para cabeçalhos */
+    color: #ffffff; /* Cor do texto dos cabeçalhos */
+    font-weight: bold; /* Peso da fonte dos cabeçalhos */
+    padding: 12px; /* Padding dos cabeçalhos */
+    text-align: left; /* Alinhamento do texto dos cabeçalhos */
 }
 
 .table td {
-    vertical-align: middle;
+    vertical-align: middle; /* Alinhamento vertical do texto das células */
+    padding: 12px; /* Padding das células */
 }
 
 /* Modais */
 .modal-header {
-    background-color: #007bff;
-    color: #ffffff;
+    background-color: #007bff; /* Azul primário para o cabeçalho do modal */
+    color: #ffffff; /* Cor do texto do cabeçalho do modal */
 }
 
 .modal-title {
@@ -80,15 +108,17 @@ h4 {
 }
 
 .close {
-    color: #ffffff;
+    color: #ffffff; /* Cor do ícone de fechar */
 }
 
 /* Ícones */
 .bi {
-    font-size: 16px;
-    margin-right: 5px;
+    font-size: 16px; /* Tamanho dos ícones */
+    margin-right: 8px; /* Margem direita para espaçamento */
+    color: #007bff; /* Cor dos ícones */
 }
 
+/* Estilo do corpo do modal */
 .modal-body .form-group {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Margem inferior para os grupos de formulários */
 }

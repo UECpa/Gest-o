@@ -22,8 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_notification'])
     $notificacao_id = $_POST['notificacao_id'];
 
     // Excluir a notificação
-    $stmt = $conn->prepare("DELETE FROM notificacoes WHERE id = ? AND usuario_id = ?");
-    $stmt->bind_param("ii", $notificacao_id, $_SESSION['user_id']);
+    $stmt = $conn->prepare("DELETE FROM notificacoes WHERE id = ?");
+    $stmt->bind_param("i", $notificacao_id);
     $stmt->execute();
     $stmt->close();
 
@@ -32,10 +32,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_notification'])
     exit();
 }
 
-// Obter as notificações do usuário logado
-$usuario_id = $_SESSION['user_id'];
-$stmt = $conn->prepare("SELECT * FROM notificacoes WHERE usuario_id = ? ORDER BY data_hora DESC");
-$stmt->bind_param("i", $usuario_id);
+// Obter todas as notificações
+$stmt = $conn->prepare("SELECT * FROM notificacoes ORDER BY data_hora DESC");
 $stmt->execute();
 $notificacoes_result = $stmt->get_result();
 
@@ -84,10 +82,7 @@ $result = $stmt->get_result();
 function formatDate($date) {
     return date('d/m/Y', strtotime($date));
 }
-
-
 ?>
-
 
 <!DOCTYPE html>
 <html lang="pt-br">
