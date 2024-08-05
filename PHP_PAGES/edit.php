@@ -140,11 +140,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-group">
                 <label for="status"><i class="bi bi-tags"></i> Status</label>
                 <select class="form-control" id="status" name="status" required>
-                    <option value="Efetivado" <?php if ($row['status'] == 'Efetivado') echo 'selected'; ?>>Efetivado</option>
-                    <option value="Cancelado" <?php if ($row['status'] == 'Cancelado') echo 'selected'; ?>>Cancelado</option>
-                    <option value="Recusa por vistoria" <?php if ($row['status'] == 'Recusa por vistoria') echo 'selected'; ?>>Recusa por vistoria</option>
-                    <option value="Processo de Vistoria" <?php if ($row['status'] == 'Processo de Vistoria') echo 'selected'; ?>>Processo de Vistoria</option>
-                </select>
+    <option value="Aguardando Emissão" <?php if ($row['status'] == 'Aguardando Emissão') echo 'selected'; ?>>Aguardando Emissão</option>
+    <option value="Emitida" <?php if ($row['status'] == 'Emitida') echo 'selected'; ?>>Emitida</option>
+    <option value="Pendencia na vistoria" <?php if ($row['status'] == 'Pendencia na vistoria') echo 'selected'; ?>>Pendência na vistoria</option>
+    <option value="Processo de Vistoria" <?php if ($row['status'] == 'Processo de Vistoria') echo 'selected'; ?>>Processo de Vistoria</option>
+    <option value="Pendencia de Proposta" <?php if ($row['status'] == 'Pendencia de Proposta') echo 'selected'; ?>>Pendência de Proposta</option>
+    <option value="Efetivado" <?php if ($row['status'] == 'Efetivado') echo 'selected'; ?>>Efetivado</option>
+    <option value="Cancelado" <?php if ($row['status'] == 'Cancelado') echo 'selected'; ?>>Cancelado</option>
+    <option value="Recusa por vistoria" <?php if ($row['status'] == 'Recusa por vistoria') echo 'selected'; ?>>Recusa por vistoria</option>
+</select>
+
             </div>
             <div class="form-group">
                 <label for="pdf"><i class="bi bi-file-earmark-arrow-up"></i> Proposta PDF</label>
@@ -178,6 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <option value="Pottencial" <?php if ($row['seguradora'] == 'Pottencial') echo 'selected'; ?>>Pottencial</option>
 <option value="SulAmerica" <?php if ($row['seguradora'] == 'SulAmerica') echo 'selected'; ?>>SulAmerica</option>
 <option value="VitalCard" <?php if ($row['seguradora'] == 'VitalCard') echo 'selected'; ?>>VitalCard</option>
+<option value="Seguro Residencial" <?php if ($row['seguradora'] == 'Seguro Residencial') echo 'selected'; ?>>Seguro Residencial</option>
 
                     </select>
                 </div>
@@ -195,6 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Seguro Frota" <?php if ($row['tipo_seguro'] == 'Seguro Frota') echo 'selected'; ?>>Seguro Frota</option>
                         <option value="Seguro Agronegócio" <?php if ($row['tipo_seguro'] == 'Seguro Agronegócio') echo 'selected'; ?>>Seguro Agronegócio</option>
                         <option value="Acidenes Pessoais" <?php if ($row['tipo_seguro'] == 'Acidenes Pessoais') echo 'selected'; ?>>Acidenes Pessoais</option>
+                        <option value="Seguro Residencial" <?php if ($row['seguradora'] == 'Seguro Residencial') echo 'selected'; ?>>Seguro Residencial</option>
                     </select>
                 </div>
             </div>

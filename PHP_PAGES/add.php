@@ -113,9 +113,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-group col-md-6">
                     <label for="status"><i class="bi bi-tags"></i> Status</label>
                     <select class="form-control" id="status" name="status">
-                        <option value="Efetivado">Efetivado</option>
+                        <option value="Efetivado">Aguardando Emissão</option>
+                        <option value="Efetivado">Emitida</option>
                         <option value="Pendencia na vistoria">Pendência na vistoria</option>
                         <option value="Processo de Vistoria">Processo de Vistoria</option>
+                        <option value="Processo de Vistoria">Pendencia de Proposta</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
@@ -151,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="tipo_seguro"><i class="bi bi-shield"></i> Tipo de Seguro</label>
                 <select class="form-control" id="tipo_seguro" name="tipo_seguro">
                     <option value="Seguro Auto">Seguro Auto</option>
+                    <option value="Seguro Residencial">Seguro Residencial</option>
                     <option value="Acidenes Pessoais">Acidenes Pessoais</option>
                     <option value="Seguro Moto">Seguro Moto</option>
                     <option value="Seguro de Vida">Seguro de Vida</option>
