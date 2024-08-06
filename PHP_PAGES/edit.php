@@ -184,6 +184,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <option value="SulAmerica" <?php if ($row['seguradora'] == 'SulAmerica') echo 'selected'; ?>>SulAmerica</option>
 <option value="VitalCard" <?php if ($row['seguradora'] == 'VitalCard') echo 'selected'; ?>>VitalCard</option>
 <option value="Bradesco" <?php if ($row['seguradora'] == 'Bradesco') echo 'selected'; ?>>Bradesco</option>
+<option value="Unimed Seguros" <?php if ($row['seguradora'] == 'Unimed Seguros') echo 'selected'; ?>>Unimed Seguros</option>
+
 
 
                     </select>

@@ -129,6 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="HDI Seguros">HDI Seguros</option>
                         <option value="Liberty Seguros">Yelum</option>
                         <option value="MAPFRE">MAPFRE</option>
+                        <option value="Unimed Seguros">Unimed Seguros</option>
                         <option value="Porto Seguro">Porto Seguro</option>
                         <option value="Sompo Auto">Sompo Auto</option>
                         <option value="Tokio Marine Seguros">Tokio Marine Seguros</option>
