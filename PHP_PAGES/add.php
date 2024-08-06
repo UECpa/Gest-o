@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group col-md-6">
                     <label for="apolice"><i class="bi bi-file-earmark-text"></i> Proposta</label>
-                    <input type="number" class="form-control" id="apolice" name="apolice" required>
+                    <input type="text" class="form-control" id="apolice" name="apolice" required>
                 </div>
             </div>
             <div class="form-row">
@@ -86,13 +86,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
                 <div class="form-group col-md-6">
                     <label for="cpf"><i class="bi bi-card-text"></i> CPF</label>
-                    <input type="number" class="form-control" id="cpf" name="cpf" required>
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
                 </div>
             </div>
             <div class="form-row">
             <div class="form-group col-md-6">
     <label for="numero"><i class="bi bi-telephone"></i> Celular</label>
-    <input type="number" class="form-control" id="numero" name="numero" required>
+    <input type="text" class="form-control" id="numero" name="numero" required>
 </div>
                 <div class="form-group col-md-6">
                     <label for="email"><i class="bi bi-envelope"></i> Email</label>
@@ -146,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Pottencial">Pottencial</option>
                         <option value="SulAmerica">SulAmerica</option>
                         <option value="VitalCard">VitalCard</option>
+                        <option value="Bradesco">Bradesco</option>
                     </select>
                 </div>
             </div>

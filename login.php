@@ -66,9 +66,6 @@ $anoAtual = date("Y");
         </div>
         <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i> Login</button>
     </form>
-    <p class="text-center mt-3">
-        <i class="fas fa-user-plus"></i> <a href="#" data-toggle="modal" data-target="#registerModal">Não tem uma conta? Registre-se aqui</a>
-    </p>
 </div>
 
 <!-- Modal de Registro -->
