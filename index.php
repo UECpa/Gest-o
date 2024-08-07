@@ -139,14 +139,18 @@ function formatDate($date) {
     <link rel="stylesheet" href="CSS/index.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-<img src="IMG/Logo.png" alt="MRG Corretora de Seguros" height="100">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-        <li class="nav-item">
+<nav class="navbar navbar-expand-lg navbar-light custom-bg">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <i class="fas fa-shield-alt" style="font-size: 80px; color: white;"></i>
+            <i class="fas fa-user" style="font-size: 45px; color: white;"></i>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
                     <a class="nav-link" href="PHP_PAGES/months.php">
                         <i class="fas fa-users"></i> Clientes
                     </a>
@@ -156,51 +160,48 @@ function formatDate($date) {
                         <i class="fas fa-tachometer-alt"></i> Info MRG
                     </a>
                 </li>
-
                 <li class="nav-item">
-                <form method="POST" action="PHP_ACTION/logout.php" class="nav-link">
-                    <button type="submit" class="btn btn-outline-danger">
-                        <i class="fas fa-sign-out-alt"></i> Logout
-                    </button>
-                </form>
-            </li>
-
-            <!-- Ícone de Notificações -->
-            <li class="nav-item dropdown">
-                <a class="nav-link" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="bi bi-bell"></i>
-                    <?php if ($notificacoes_result->num_rows > 0): ?>
-                        <span class="badge badge-danger"><?php echo $notificacoes_result->num_rows; ?></span>
-                    <?php endif; ?>
-                </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
-                    <!-- Notificações -->
-                    <?php if ($notificacoes_result->num_rows > 0): ?>
-                        <?php while ($notificacao = $notificacoes_result->fetch_assoc()): ?>
-                            <div class="dropdown-item">
-                                <div class="d-flex justify-content-between">
+                    <form method="POST" action="PHP_ACTION/logout.php" class="nav-link">
+                        <button type="submit" class="btn btn-outline-danger">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </button>
+                    </form>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link" href="#" id="notificationDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="bi bi-bell"></i>
+                        <?php if ($notificacoes_result->num_rows > 0): ?>
+                            <span class="badge badge-danger"><?php echo $notificacoes_result->num_rows; ?></span>
+                        <?php endif; ?>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="notificationDropdown">
+                        <?php if ($notificacoes_result->num_rows > 0): ?>
+                            <?php while ($notificacao = $notificacoes_result->fetch_assoc()): ?>
+                                <div class="dropdown-item d-flex justify-content-between align-items-center">
                                     <div>
+                                        <i class="fas fa-info-circle"></i>
                                         <?php echo htmlspecialchars($notificacao['mensagem']); ?>
                                         <small class="text-muted"><?php echo date('d/m/Y H:i', strtotime($notificacao['data_hora'])); ?></small>
                                     </div>
                                     <form method="POST" style="display:inline;">
                                         <input type="hidden" name="notificacao_id" value="<?php echo $notificacao['id']; ?>">
-                                        <button type="submit" name="delete_notification" class="btn btn-sm btn-danger">
+                                        <button type="submit" name="delete_notification" class="btn btn-sm btn-danger ml-2">
                                             <i class="bi bi-x"></i>
                                         </button>
                                     </form>
                                 </div>
                                 <hr>
-                            </div>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <a class="dropdown-item" href="#">Sem notificações</a>
-                    <?php endif; ?>
-                </div>
-            </li>
-        </ul>
+                            <?php endwhile; ?>
+                        <?php else: ?>
+                            <a class="dropdown-item" href="#">Sem notificações</a>
+                        <?php endif; ?>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>
+
 
 <!-- Modal de Notificações -->
 <div class="modal fade" id="notificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">

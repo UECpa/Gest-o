@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="text" class="form-control" id="nome" name="nome" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="cpf"><i class="bi bi-card-text"></i> CPF</label>
+                    <label for="cpf"><i class="bi bi-card-text"></i>CPF/CNPJ</label>
                     <input type="text" class="form-control" id="cpf" name="cpf" required>
                 </div>
             </div>
@@ -180,6 +180,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="../JS/verificar_proposta.js"></script>
 </body>
 </html>

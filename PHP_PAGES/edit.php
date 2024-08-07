@@ -109,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <input type="text" class="form-control" id="nome" name="nome" value="<?php echo htmlspecialchars($row['nome']); ?>" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="cpf"><i class="bi bi-card-text"></i> CPF</label>
+                    <label for="cpf"><i class="bi bi-card-text"></i>CPF/CNPJ</label>
                     <input type="text" class="form-control" id="cpf" name="cpf" value="<?php echo htmlspecialchars($row['cpf']); ?>" required>
                 </div>
             </div>

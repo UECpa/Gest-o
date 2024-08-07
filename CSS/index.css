@@ -1,5 +1,7 @@
 /* index.css */
 
+
+
 /* Estilos globais */
 body {
     background: linear-gradient(to bottom, #aaf2c9, #ffffff); /* Gradiente verde claro para branco */
@@ -21,10 +23,14 @@ body {
 
 /* Navegação */
 .navbar {
-    background-color: #007f4f; /* Verde escuro para a navbar */
+    background-color: #20a06f; /* Verde escuro para a navbar */
     border-bottom: 2px solid #004d40; /* Cor de destaque para a borda inferior */
     padding: 10px 20px; /* Padding para a navbar */
     margin-bottom: 20px;
+}
+
+.navbar-brand i {
+    margin-right: 10px; /* Espaçamento entre ícones */
 }
 
 .navbar-nav .nav-link {
@@ -36,7 +42,12 @@ body {
 }
 
 .navbar-nav .nav-link:hover {
-    color: #d3d3d3; /* Cor clara para hover */
+    color: #d5ec82; /* Cor clara para hover */
+}
+
+/* Ícones da notificação */
+.dropdown-item i {
+    margin-right: 10px; /* Espaçamento entre ícone e texto */
 }
 
 /* Saudações e Títulos */
@@ -216,4 +227,9 @@ h3 {
 
 .dropdown-item:hover {
     background-color: #f1f1f1; /* Fundo claro para hover */
+}
+
+.dropdown-item .btn-sm {
+    font-size: 12px;
+    margin-left: 10px; /* Espaçamento entre a mensagem e o botão de excluir */
 }
