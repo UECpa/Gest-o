@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $seguradora = $_POST['seguradora'];
     $tipo_seguro = $_POST['tipo_seguro'];
     $observacoes = $_POST['observacoes'];
+    
 
     // Registrar a notificação
     $usuario_id = $_SESSION['user_id'];
@@ -30,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("INSERT INTO notificacoes (usuario_id, mensagem, data_hora) VALUES (?, ?, ?)");
     $stmt->bind_param("iss", $usuario_id, $mensagem, $mensagem);
     $stmt->execute();
-    
+
     $pdf_path = NULL;
     if (isset($_FILES['pdf']) && $_FILES['pdf']['error'] == UPLOAD_ERR_OK) {
         $pdf_name = $_FILES['pdf']['name'];
@@ -42,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = $conn->prepare("INSERT INTO clientes (inicio_vigencia, apolice, nome, cpf, numero, email, premio_liquido, comissao, status, seguradora, tipo_seguro, pdf_path, observacoes) 
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param('sssssssssssss', $inicio_vigencia, $apolice, $nome, $cpf, $numero, $email, $premio_liquido, $comissao, $status, $seguradora, $tipo_seguro, $pdf_path, $observacoes);
-    
+
     if ($stmt->execute()) {
         header('Location: ../index.php');
     } else {
@@ -56,15 +57,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Adicionar Cliente</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"></script>
     <link rel="stylesheet" href="../CSS/add.css">
 </head>
+
 <body>
     <div class="container mt-5">
         <h2 class="text-center mb-4">Adicionar Cliente</h2>
@@ -90,10 +94,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
             </div>
             <div class="form-row">
-            <div class="form-group col-md-6">
-    <label for="numero"><i class="bi bi-telephone"></i> Celular</label>
-    <input type="text" class="form-control" id="numero" name="numero" required>
-</div>
+                <div class="form-group col-md-6">
+                    <label for="numero"><i class="bi bi-telephone"></i> Celular</label>
+                    <input type="text" class="form-control" id="numero" name="numero" required>
+                </div>
                 <div class="form-group col-md-6">
                     <label for="email"><i class="bi bi-envelope"></i> Email</label>
                     <input type="email" class="form-control" id="email" name="email" required>
@@ -102,7 +106,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="premio_liquido"><i class="bi bi-currency-dollar"></i> Prêmio Líquido</label>
-                    <input type="number" step="0.01" class="form-control" id="premio_liquido" name="premio_liquido" required>
+                    <input type="number" step="0.01" class="form-control" id="premio_liquido" name="premio_liquido"
+                        required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="comissao"><i class="bi bi-percent"></i> Comissão (%)</label>
@@ -173,9 +178,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <textarea class="form-control" id="observacoes" name="observacoes" rows="4"></textarea>
             </div>
             <div class="form-group">
-    <label for="pdf"><i class="bi bi-file-earmark-arrow-up"></i> Proposta PDF</label>
-    <input type="file" class="form-control-file" id="pdf" name="pdf" required>
-</div>
+                <label for="pdf"><i class="bi bi-file-earmark-arrow-up"></i> Proposta PDF</label>
+                <input type="file" class="form-control-file" id="pdf" name="pdf" required>
+            </div>
             <button type="submit" class="btn btn-primary"><i class="bi bi-save"></i> Adicionar</button>
         </form>
     </div>
@@ -184,4 +189,5 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="../JS/verificar_proposta.js"></script>
 </body>
+
 </html>
