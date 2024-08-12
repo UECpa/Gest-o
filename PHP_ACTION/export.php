@@ -42,6 +42,7 @@ echo '<th>Prêmio Líquido</th>';
 echo '<th>Comissão (%)</th>';
 echo '<th>Comissão Calculada</th>';
 echo '<th>Status</th>';
+echo '<th>Seguradora</th>'; // Adicionando a coluna Seguradora
 echo '<th>Arquivo PDF</th>';
 echo '</tr>';
 
@@ -57,6 +58,7 @@ while ($row = $result->fetch_assoc()) {
     echo '<td>' . $row['comissao'] . '</td>';
     echo '<td>' . $row['premio_liquido'] * ($row['comissao'] / 100) . '</td>';
     echo '<td>' . $row['status'] . '</td>';
+    echo '<td>' . $row['seguradora'] . '</td>'; // Exibindo a seguradora
     echo '<td>' . $row['pdf_path'] . '</td>';
     echo '</tr>';
 }
