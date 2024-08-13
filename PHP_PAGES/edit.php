@@ -246,6 +246,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="Bradesco" <?php if ($row['seguradora'] == 'Bradesco')
                             echo 'selected'; ?>>Bradesco
                         </option>
+                        <option value="ItauSeguros" <?php if ($row['seguradora'] == 'ItauSeguros') echo 'selected'; ?>>ItauSeguros</option>
                         <option value="Unimed Seguros" <?php if ($row['seguradora'] == 'Unimed Seguros')
                             echo 'selected'; ?>>Unimed Seguros</option>
 

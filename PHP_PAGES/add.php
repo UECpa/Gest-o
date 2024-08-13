@@ -153,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <option value="SulAmerica">SulAmerica</option>
                         <option value="VitalCard">VitalCard</option>
                         <option value="Bradesco">Bradesco</option>
+                        <option value="ItauSeguros">ItauSeguros</option>
                     </select>
                 </div>
             </div>
