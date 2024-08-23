@@ -105,9 +105,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
             <div class="form-row">
             <div class="form-group col-md-6">
-    <label for="premio_liquido"><i class="bi bi-currency-dollar"></i> Prêmio Líquido</label>
-    <input type="text" class="form-control" id="premio_liquido" name="premio_liquido" required>
-</div>
+                    <label for="premio_liquido"><i class="bi bi-currency-dollar"></i> Prêmio Líquido</label>
+                    <input type="number" step="0.01" class="form-control" id="premio_liquido" name="premio_liquido"
+                        required>
+                </div>
 
                 <div class="form-group col-md-6">
                     <label for="comissao"><i class="bi bi-percent"></i> Comissão (%)</label>
@@ -189,19 +190,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="../JS/verificar_proposta.js"></script>
-    <script>document.getElementById('premio_liquido').addEventListener('input', function(e) {
-    let value = e.target.value;
-
-    value = value.replace(/\D/g, ''); // Remove tudo que não é dígito
-    value = (value / 100).toFixed(2); // Divide por 100 para ter o valor em reais
-    value = value.replace(".", ","); // Substitui o ponto pela vírgula
-
-    // Adiciona os pontos de milhar
-    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-
-    e.target.value = "R$ " + value;
-});
-</script>
     
 </body>
 
